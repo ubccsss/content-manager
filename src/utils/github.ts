@@ -1,18 +1,18 @@
 import {getCurrentDate, readFile} from "./utils";
-import {FormDataProps} from "../reducers/FormReducer";
+import {FormFields} from "../reducers/FormReducer";
 import {Octokit} from "@octokit/rest";
 import {BASE_BRANCH, OWNER, REPO} from "../constants/constants";
 import {Buffer} from "buffer";
 import {OctokitResponse} from "@octokit/types";
 
-// returns branch name
-const getBranchName = () => {
+// returns new branch name
+const getNewBranchName = () => {
   return `new-event-${Date.now()}`;
 }
 
 // returns file name for event
 const getEventFileName = (title: string) => {
-  return `${getCurrentDate()}-${title.trim().toLowerCase().replace(" ", "-")}.md`;
+  return `${getCurrentDate()}-${title.trim().toLowerCase().replaceAll(" ", "-")}.md`;
 }
 
 // returns path for event file
@@ -21,7 +21,7 @@ const getEventPath = (title: string) => {
 }
 
 // returns content for event file
-const getNewEventFileContent = (state: FormDataProps) => {
+const getNewEventFileContent = (state: FormFields) => {
   const {body, categories, previewImage, startDate, startTime, endDate, endTime, tags, title, author} = state;
   return (
     `---
@@ -53,14 +53,14 @@ ${body}
 // Official GitHub API Docs: https://docs.github.com/en/rest
 // Python reference for pushing to GitHub using the REST API: https://gist.github.com/harlantwood/2935203
 // Post on committing images: https://stackoverflow.com/questions/65333387/commit-image-in-git-tree-using-the-github-api
-export const createEvent = async (state: FormDataProps) => {
+export const createEvent = async (state: FormFields) => {
   // create new octokit instance with auth token
   const octokit = new Octokit({
     auth: process.env.REACT_APP_TOKEN
   })
 
   // get new branch name
-  const branchName = getBranchName();
+  const newBranchName = getNewBranchName();
 
   // get ref for base branch
   const baseBranchRef = await octokit.git.getRef({
@@ -76,7 +76,7 @@ export const createEvent = async (state: FormDataProps) => {
   await octokit.rest.git.createRef({
     owner: OWNER,
     repo: REPO,
-    ref: `refs/heads/${branchName}`,
+    ref: `refs/heads/${newBranchName}`,
     sha: lastCommitSha
   });
 
@@ -176,7 +176,7 @@ export const createEvent = async (state: FormDataProps) => {
   await octokit.rest.git.updateRef({
     owner: OWNER,
     repo: REPO,
-    ref: `heads/${branchName}`,
+    ref: `heads/${newBranchName}`,
     sha: newCommitSha
   })
 
@@ -186,7 +186,7 @@ export const createEvent = async (state: FormDataProps) => {
     repo: REPO,
     title: `Added new event: ${state.title} by ${state.author}`,
     body: 'This is an auto-generated PR made using: https://github.com/ubccsss/content-manager',
-    head: branchName,
+    head: newBranchName,
     base: BASE_BRANCH
   })
 

@@ -1,8 +1,7 @@
-import {useContext} from "react";
-import {StateContext} from "../contexts";
 import {getCurrentDate} from "../utils";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {atomOneLight} from 'react-syntax-highlighter/dist/cjs/styles/hljs'
+import {useState} from "../contexts/contexts";
 
 export const MarkdownPreview = () => {
   const {
@@ -16,7 +15,7 @@ export const MarkdownPreview = () => {
     tags = "",
     title = "",
     author = ""
-  } = useContext(StateContext);
+  } = useState();
 
   const markdown =
     `---

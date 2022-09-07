@@ -1,3 +1,4 @@
 export {MarkdownPreview} from "./MarkdownPreview";
 export {OutputPreview} from "./OutputPreview";
-export {Field} from "./Field";
+export {FieldComponent} from "./FieldComponent";
+export {FormComponent} from "./FormComponent";

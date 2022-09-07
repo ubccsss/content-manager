@@ -1,6 +1,6 @@
 import {MONTHS_MAP} from "../constants/constants";
 
-// returns a promise that returns a file as an arrayBuffers when resolved
+// returns a promise that returns a file as a arrayBuffer when resolved
 export const readFile = (file: Blob) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

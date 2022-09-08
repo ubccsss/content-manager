@@ -1,31 +1,52 @@
-# Getting Started with Create React App
+# content manager for ubccsss.org
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Create posts for [ubccsss.org](https://github.com/ubccsss/ubccsss.org)
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+```bash
+$ git clone git@github.com:ubccsss/content-manager.git
+$ cd content-manager
+$ yarn install
+```
 
-### `yarn start`
+## Environment Variables
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- `GITHUB_TOKEN` - GitHub personal access token generated from using [csssbot's account](https://github.com/csssbot)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Download the token from Netlify and store it in a file called `.env` in the root directory of the project. Like:
+   
+ ```bash
+GITHUB_TOKEN="QWERTY123"
+ ```
 
-### `yarn build`
+## Usage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+$ yarn start # runs the app in the development mode a http://localhost:3000
+$ yarn build # builds the app for production to the `build` folder
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contributing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Dependencies
 
-## Learn More
+- [Netlify](https://www.netlify.com) is used to deploy the app
+- [React](https://reactjs.org) is used to build the app
+- [TypeScript](https://www.typescriptlang.org) is used to type check the app
+- [react-bootstrap](https://react-bootstrap.github.io) is used to style the app
+- [Yup](https://www.npmjs.com/package/yup) and [Formik](https://www.npmjs.com/package/formik) are used for form validation
+- [react-syntax-highlighter](https://www.npmjs.com/package/react-syntax-highlighter) is used for syntax highlighting is in the "Markdown" preview
+- [react-markdown](https://www.npmjs.com/package/react-markdown) is used for rendering markdown in the "Output" preview
+- [GitHub API](https://docs.github.com/en/rest) is used to create a pull request using ["@octokit/rest](https://www.npmjs.com/package/@octokit/rest)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Folder Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `src` - contains all the source code for the app
+  - `components` - contains all the components used in the app
+  - `contants` - contains all the constants used in the app
+  - `contexts` - contains all the contexts used in the app
+  - `reducers` - contains all the reducers used in the app
+  - `utils` - contains all the utility functions used in the app
+  - `App.tsx` - the main app component
+  - `index.tsx` - the entry point of the app

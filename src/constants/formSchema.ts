@@ -3,35 +3,35 @@ import {FORM_ACTION_TYPES} from "../reducers/FormActions";
 // Schema for the form
 export const formSchema: any = {
   title: {
-    label: "Title",
+    label: "Title*",
     type: "text",
     placeholder: "Enter title",
     actionType: FORM_ACTION_TYPES.UPDATE_TITLE,
     name: "title"
   },
   tags: {
-    label: "Tags",
+    label: "Tags*",
     type: "text",
     placeholder: "comma separated value, eg: event, social",
     actionType: FORM_ACTION_TYPES.UPDATE_TAGS,
     name: "tags"
   },
   categories: {
-    label: "Categories",
+    label: "Categories*",
     type: "text",
     placeholder: "comma separated value, eg: event, social",
     actionType: FORM_ACTION_TYPES.UPDATE_CATEGORIES,
     name: "categories"
   },
   author: {
-    label: "Author",
+    label: "Author*",
     type: "text",
     placeholder: "Name of the author (you)",
     actionType: FORM_ACTION_TYPES.UPDATE_AUTHOR,
     name: "author"
   },
   previewImage: {
-    label: "Preview Image (Used for cards)",
+    label: "Preview Image* (Used for cards)",
     type: "file",
     placeholder: "Select preview image",
     actionType: FORM_ACTION_TYPES.UPDATE_PREVIEW_IMAGE,
@@ -39,7 +39,7 @@ export const formSchema: any = {
   },
   row0: [{
     startDate: {
-      label: "Start Date",
+      label: "Start Date*",
       type: "date",
       placeholder: "Select start date",
       actionType: FORM_ACTION_TYPES.UPDATE_START_DATE,
@@ -47,7 +47,7 @@ export const formSchema: any = {
     }
   }, {
     startTime: {
-      label: "Start Time",
+      label: "Start Time*",
       type: "time",
       placeholder: "Select start time",
       actionType: FORM_ACTION_TYPES.UPDATE_START_TIME,
@@ -56,7 +56,7 @@ export const formSchema: any = {
   }],
   row1: [{
     startDate: {
-      label: "End Date",
+      label: "End Date*",
       type: "date",
       placeholder: "Select end date",
       actionType: FORM_ACTION_TYPES.UPDATE_END_DATE,
@@ -64,7 +64,7 @@ export const formSchema: any = {
     }
   }, {
     startTime: {
-      label: "End Time",
+      label: "End Time*",
       type: "time",
       placeholder: "Select end time",
       actionType: FORM_ACTION_TYPES.UPDATE_END_TIME,
@@ -80,7 +80,7 @@ export const formSchema: any = {
     multiple: true
   },
   body: {
-    label: "Body (Use Markdown over HTML as much as possible)",
+    label: "Body* (Use Markdown over HTML as much as possible)",
     type: "textarea",
     placeholder: "image markdown syntax: ![](/files/image_name.png)",
     actionType: FORM_ACTION_TYPES.UPDATE_BODY,

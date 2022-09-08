@@ -76,6 +76,7 @@ export const FieldComponent = ({
         onBlur={onBlur}
         className={touched && !error ? "is-valid" : touched && error ? "is-invalid" : ""}
         accept={type === 'file' ? 'image/*' : undefined}
+        step={type === 'time' ? 1 : undefined}
       />
       {renderFileNames(name)}
       <Form.Control.Feedback type="invalid">

@@ -41,7 +41,7 @@ const validationSchema = yup.object().shape({
   endTime: yup.string().required().test('is-after', 'event must start before it ends', function () {
     return validateDateTime(this.parent, this.path, "time");
   }),
-  otherImages: yup.string().required(),
+  otherImages: yup.string(),
   body: yup.string().required(),
 });
 

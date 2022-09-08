@@ -28,6 +28,7 @@ const App = () => {
         <Row xs={1} lg={2} className="row-height">
           <Col className="scrollable">
             <h1>Create New Event</h1>
+            <i className="float-end text-secondary">fields marked with * are required</i>
             <FormComponent
               initialState={formInitialState}
               setIsMarkdownPreview={setIsMarkdownPreview}

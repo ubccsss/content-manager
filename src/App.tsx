@@ -4,6 +4,7 @@ import {Alert, Col, Container, Row} from "react-bootstrap";
 import {FormComponent, MarkdownPreview, OutputPreview} from "./components";
 import {formInitialState, useDispatch, useStore} from './contexts/contexts';
 import {updateAlertShow} from "./reducers/AlertActions";
+import {RepoIcons} from "./components/RepoIcons";
 
 const App = () => {
   const [isMarkdownPreview, setIsMarkdownPreview] = React.useState(true);
@@ -26,7 +27,7 @@ const App = () => {
       }
       <Container fluid>
         <Row xs={1} lg={2} className="row-height">
-          <Col className="scrollable">
+          <Col className="scrollable pb-4 pb-lg-0">
             <h1>Create New Event</h1>
             <i className="float-end text-secondary">fields marked with * are required</i>
             <FormComponent
@@ -35,6 +36,7 @@ const App = () => {
             />
           </Col>
           <Col className="scrollable">
+            <RepoIcons/>
             {isMarkdownPreview ? <MarkdownPreview/> : <OutputPreview/>}
           </Col>
         </Row>

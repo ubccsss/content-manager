@@ -19,6 +19,9 @@ const validateDateTime = (schema: any, field: string, type: "date" | "time") => 
     }
     return new Date(`${startDate}T${startTime}`) < new Date(`${endDate}T${endTime}`)
   }
+  if (startDate && endDate && type === "date") {
+    return new Date(startDate) <= new Date(endDate)
+  }
   return true;
 }
 

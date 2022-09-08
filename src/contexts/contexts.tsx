@@ -35,6 +35,7 @@ const alertInitialState: AlertData = {
   variant: undefined
 }
 
+// combined reducers
 export const [appReducer, initialState] = combineReducers<AppReducer>({
   form: [FormReducer, formInitialState],
   alert: [AlertReducer, alertInitialState]
@@ -43,15 +44,16 @@ export const [appReducer, initialState] = combineReducers<AppReducer>({
 export const StateContext = createContext({} as AppState);
 export const DispatchContext = createContext({} as React.Dispatch<FormActions | AlertActions>);
 
+// provider gives access to store and dispatch
 export const AppProvider = ({children}: any) => {
-  const [state, dispatch] = useReducer<AppReducer>(
+  const [store, dispatch] = useReducer<AppReducer>(
     appReducer,
     initialState
   );
 
   return (
     <DispatchContext.Provider value={dispatch}>
-      <StateContext.Provider value={state}>
+      <StateContext.Provider value={store}>
         {children}
       </StateContext.Provider>
     </DispatchContext.Provider>

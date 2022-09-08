@@ -49,6 +49,7 @@ export const FieldComponent = ({
     }
   }
 
+  // display file names if files are selected
   const renderFileNames = (fieldName: string) => {
     const files: FileList | undefined = store.form[name] as FileList;
     if (files && (fieldName === 'otherImages' || fieldName === 'previewImage')) {

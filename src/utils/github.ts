@@ -133,7 +133,7 @@ export const createEvent = async (state: FormFields) => {
   // create a new tree with the blobs
   const treeObjects = imageBlobs.map((blob, index) => {
     return {
-      path: `files/${imageNames[index]}`,
+      path: `static/files/${imageNames[index]}`,
       mode: '100644',
       type: 'blob',
       sha: blob.data.sha

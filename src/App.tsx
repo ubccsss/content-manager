@@ -26,7 +26,7 @@ const App = () => {
       }
       <Container fluid>
         <Row xs={1} lg={2} className="row-height">
-          <Col className="scrollable">
+          <Col className="scrollable pb-4 pb-lg-0">
             <h1>Create New Event</h1>
             <i className="float-end text-secondary">fields marked with * are required</i>
             <FormComponent

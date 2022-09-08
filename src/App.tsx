@@ -25,15 +25,15 @@ const App = () => {
           </div>
       }
       <Container fluid>
-        <Row xs={1} lg={2}>
-          <Col>
+        <Row xs={1} lg={2} className="row-height">
+          <Col className="scrollable">
             <h1>Create New Event</h1>
             <FormComponent
               initialState={formInitialState}
               setIsMarkdownPreview={setIsMarkdownPreview}
             />
           </Col>
-          <Col>
+          <Col className="scrollable">
             {isMarkdownPreview ? <MarkdownPreview/> : <OutputPreview/>}
           </Col>
         </Row>

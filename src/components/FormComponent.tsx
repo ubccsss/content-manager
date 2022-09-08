@@ -6,8 +6,9 @@ import {createEvent} from "../utils/github";
 import {FIELD_ACTION_MAP, updateField, updateImage} from "../reducers/FormActions";
 import * as yup from 'yup';
 import {Field, FieldComponent} from "./FieldComponent";
-import {useDispatch, useState} from "../contexts/contexts";
+import {useDispatch, useStore} from "../contexts/contexts";
 import {formSchema} from "../constants/formSchema";
+import {updateAlert} from "../reducers/AlertActions";
 
 // validate date and time
 const validateDateTime = (schema: any, field: string, type: "date" | "time") => {
@@ -50,7 +51,7 @@ interface FormComponentProps {
 }
 
 export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponentProps) => {
-  const state = useState();
+  const state = useStore();
   const dispatch = useDispatch();
 
   const showOutput = () => {
@@ -78,7 +79,14 @@ export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponen
     <Formik
       validationSchema={validationSchema}
       onSubmit={async () => {
-        await createEvent(state);
+        const {title, html_url} = await createEvent(state.form);
+        dispatch(updateAlert({
+          show: true,
+          message: `Successfully created event: ${title}`,
+          variant: 'success',
+          url: html_url,
+          urlText: 'Click here to see the PR and deploy preview.'
+        }))
       }}
       initialValues={initialState}
     >
@@ -97,7 +105,7 @@ export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponen
             return (
               <React.Fragment key={index}>
                 {Array.isArray(formSchema[key]) ? (
-                  <Row>
+                  <Row xs={1} sm={formSchema[key].length}>
                     {formSchema[key].map((row: any, index: number) => {
                         const field = Object.values(row)[0] as Field;
                         return (

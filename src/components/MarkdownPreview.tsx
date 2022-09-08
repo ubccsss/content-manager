@@ -1,9 +1,10 @@
 import {getCurrentDate} from "../utils";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {atomOneLight} from 'react-syntax-highlighter/dist/cjs/styles/hljs'
-import {useState} from "../contexts/contexts";
+import {useStore} from "../contexts/contexts";
 
 export const MarkdownPreview = () => {
+  const store = useStore();
   const {
     body = "",
     categories = "",
@@ -15,7 +16,7 @@ export const MarkdownPreview = () => {
     tags = "",
     title = "",
     author = ""
-  } = useState();
+  } = store.form;
 
   const markdown =
     `---

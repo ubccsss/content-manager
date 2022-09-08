@@ -2,7 +2,7 @@ import {Form} from "react-bootstrap";
 import React from "react";
 import {FORM_ACTION_TYPES} from "../reducers/FormActions";
 import {FormFields} from "../reducers/FormReducer";
-import {useState} from "../contexts/contexts";
+import {useStore} from "../contexts/contexts";
 import styles from "./FieldComponent.module.css";
 
 export interface Field {
@@ -30,7 +30,7 @@ export const FieldComponent = ({
                                  onChange,
                                  onBlur
                                }: FieldComponentProps) => {
-  const state = useState();
+  const store = useStore();
   const {label, type, placeholder, name, multiple, rows} = field;
   let conditionalProps: any;
   if (type === 'textarea') {
@@ -50,7 +50,7 @@ export const FieldComponent = ({
   }
 
   const renderFileNames = (fieldName: string) => {
-    const files: FileList | undefined = state[name] as FileList;
+    const files: FileList | undefined = store.form[name] as FileList;
     if (files && (fieldName === 'otherImages' || fieldName === 'previewImage')) {
       return (
         <Form.Control.Feedback type="valid">

@@ -1,13 +1,66 @@
-import React, {createContext} from "react";
-import {FormFields} from "../reducers/FormReducer";
+import combineReducers from "react-combine-reducers";
+import {AlertData, AlertReducer} from "../reducers/AlertReducer";
+import {FormFields, FormReducer} from "../reducers/FormReducer";
 import {FormActions} from "../reducers/FormActions";
+import {AlertActions} from "../reducers/AlertActions";
+import React, {createContext, useContext, useReducer} from "react";
 
-export const StateContext = createContext({} as FormFields);
-export const DispatchContext = createContext({} as React.Dispatch<FormActions>);
+interface AppState {
+  form: FormFields;
+  alert: AlertData;
+}
+
+type Actions = FormActions | AlertActions;
+type AppReducer = (state: AppState, action: Actions) => AppState;
+
+export const formInitialState: FormFields = {
+  title: "",
+  tags: "",
+  categories: "",
+  author: "",
+  previewImage: undefined,
+  startDate: "",
+  startTime: "",
+  endDate: "",
+  endTime: "",
+  otherImages: undefined,
+  body: ""
+}
+
+const alertInitialState: AlertData = {
+  show: false,
+  message: "",
+  url: "",
+  urlText: "",
+  variant: undefined
+}
+
+export const [appReducer, initialState] = combineReducers<AppReducer>({
+  form: [FormReducer, formInitialState],
+  alert: [AlertReducer, alertInitialState]
+});
+
+export const StateContext = createContext({} as AppState);
+export const DispatchContext = createContext({} as React.Dispatch<FormActions | AlertActions>);
+
+export const AppProvider = ({children}: any) => {
+  const [state, dispatch] = useReducer<AppReducer>(
+    appReducer,
+    initialState
+  );
+
+  return (
+    <DispatchContext.Provider value={dispatch}>
+      <StateContext.Provider value={state}>
+        {children}
+      </StateContext.Provider>
+    </DispatchContext.Provider>
+  )
+}
 
 // hook for accessing dispatch
 export const useDispatch = () => {
-  const dispatch = React.useContext(DispatchContext);
+  const dispatch = useContext(DispatchContext);
   if (dispatch === undefined) {
     throw new Error('useDispatch must be used within a Provider');
   }
@@ -15,8 +68,8 @@ export const useDispatch = () => {
 }
 
 // hook for accessing state
-export const useState = () => {
-  const state = React.useContext(StateContext);
+export const useStore = () => {
+  const state = useContext(StateContext);
   if (state === undefined) {
     throw new Error('useState must be used within a Provider');
   }

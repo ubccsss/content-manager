@@ -190,7 +190,6 @@ export const createEvent = async (state: FormFields) => {
     base: BASE_BRANCH
   })
 
-  // url of the new PR
-  const url = newPR.data.html_url;
-  console.log(url);
+  // return response containing new PR data
+  return newPR.data;
 }

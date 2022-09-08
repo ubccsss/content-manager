@@ -72,7 +72,6 @@ export const FormReducer = (state: FormFields, action: FormActions) => {
         body: action.payload.body
       }
     default:
-      console.error("Invalid action type");
       return state;
   }
 }

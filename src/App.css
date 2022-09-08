@@ -1,20 +1,22 @@
-/*Set the row height to the viewport*/
-.row-height{
-    height: 100vh;
-}
+@media only screen and (min-width: 992px) {
+    /*Set the row height to the viewport*/
+    .row-height{
+        height: 100vh;
+    }
 
-/*Set up the columns with a 100% height, body color and overflow scroll*/
-.scrollable{
-    height: 100%;
-    overflow-y: scroll;
-}
+    /*Set up the columns with a 100% height, body color and overflow scroll*/
+    .scrollable{
+        height: 100%;
+        overflow-y: scroll;
+    }
 
-/*Remove the scrollbar from Chrome, Safari, Edge and IE*/
-::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-}
+    /*Remove the scrollbar from Chrome, Safari, Edge and IE*/
+    ::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
 
-* {
-    -ms-overflow-style: none !important;
+    * {
+        -ms-overflow-style: none !important;
+    }
 }

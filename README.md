@@ -12,12 +12,12 @@ $ yarn install
 
 ## Environment Variables
 
-- `GITHUB_TOKEN` - GitHub personal access token generated from using [csssbot's account](https://github.com/csssbot)
+- `REACT_APP_TOKEN` - GitHub personal access token generated from using [csssbot's account](https://github.com/csssbot)
 
 Download the token from Netlify and store it in a file called `.env` in the root directory of the project. Like:
    
  ```bash
-GITHUB_TOKEN="QWERTY123"
+REACT_APP_TOKEN="QWERTY123"
  ```
 
 ## Usage

@@ -4,6 +4,7 @@ import {Alert, Col, Container, Row} from "react-bootstrap";
 import {FormComponent, MarkdownPreview, OutputPreview} from "./components";
 import {formInitialState, useDispatch, useStore} from './contexts/contexts';
 import {updateAlertShow} from "./reducers/AlertActions";
+import {RepoIcons} from "./components/RepoIcons";
 
 const App = () => {
   const [isMarkdownPreview, setIsMarkdownPreview] = React.useState(true);
@@ -35,6 +36,7 @@ const App = () => {
             />
           </Col>
           <Col className="scrollable">
+            <RepoIcons/>
             {isMarkdownPreview ? <MarkdownPreview/> : <OutputPreview/>}
           </Col>
         </Row>

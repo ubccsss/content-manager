@@ -1,6 +1,6 @@
 import {FORM_ACTION_TYPES, FormActions} from "./FormActions";
 
-export interface FormDataProps {
+export interface FormFields {
   title: string,
   tags: string,
   categories: string,
@@ -14,7 +14,7 @@ export interface FormDataProps {
   body: string
 }
 
-export const FormReducer = (state: FormDataProps, action: FormActions) => {
+export const FormReducer = (state: FormFields, action: FormActions) => {
   switch (action.type) {
     case FORM_ACTION_TYPES.UPDATE_TITLE:
       return {
@@ -72,7 +72,6 @@ export const FormReducer = (state: FormDataProps, action: FormActions) => {
         body: action.payload.body
       }
     default:
-      console.error("Invalid action type");
       return state;
   }
 }

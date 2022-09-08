@@ -1,6 +1,6 @@
 import {MONTHS_MAP} from "../constants/constants";
 
-// returns a promise that returns a file as an raw binary string when resolved
+// returns a promise that returns a file as a raw binary string when resolved
 export const readFile = (file: Blob) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

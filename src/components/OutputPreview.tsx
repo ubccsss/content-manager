@@ -1,11 +1,11 @@
 import ReactMarkdown from 'react-markdown'
-import {useContext} from "react";
 import rehypeRaw from 'rehype-raw'
 import ReactDOMServer from 'react-dom/server';
-import {StateContext} from "../contexts";
 import {delimitCSV, getLink, getPublishDate} from "../utils";
+import {useStore} from "../contexts/contexts";
 
 export const OutputPreview = () => {
+  const store = useStore();
   const {
     body,
     categories,
@@ -14,7 +14,7 @@ export const OutputPreview = () => {
     tags,
     title,
     author
-  } = useContext(StateContext);
+  } = store.form;
 
   // replace image tags with actual images
   const renderCSVToString = (csv: string) => {
@@ -69,7 +69,7 @@ export const OutputPreview = () => {
       return input;
     }
     const regex = isMarkdown ? /!\[(.*)\]\((\/files\/.*)\)/g : /<img src="(\/files\/.*)" alt="(.*)">/g;
-    return input.replace(regex, (match, p1, p2) => {
+    return input.replaceAll(regex, (match, p1, p2) => {
       let alt: string, src: string;
       if (isMarkdown) {
         alt = p1;
@@ -78,7 +78,7 @@ export const OutputPreview = () => {
         alt = p2;
         src = p1;
       }
-      src = src.replace("/files/", "");
+      src = src.replaceAll("/files/", "");
       const image = otherImages ? Array.from(otherImages).find((image) => image.name === src) : null;
       if (image) {
         // replace with link to uploaded otherImages

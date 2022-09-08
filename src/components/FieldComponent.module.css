@@ -1,0 +1,14 @@
+ul.dashed {
+    margin: 0;
+    padding-left: 1rem;
+    list-style-type: none;
+}
+
+ul.dashed > li {
+    text-indent: -5px;
+}
+
+ul.dashed > li:before {
+    content: "- ";
+    text-indent: -5px;
+}

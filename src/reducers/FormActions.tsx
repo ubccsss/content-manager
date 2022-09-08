@@ -1,4 +1,4 @@
-import {FormDataProps} from "./FormReducer";
+import {FormFields} from "./FormReducer";
 
 export enum FORM_ACTION_TYPES {
   UPDATE_TITLE = 'UPDATE_TITLE',
@@ -14,41 +14,41 @@ export enum FORM_ACTION_TYPES {
   UPDATE_BODY = 'UPDATE_BODY',
 }
 
-export const ACTION_FIELD_MAP = {
-  [FORM_ACTION_TYPES.UPDATE_TITLE]: "title",
-  [FORM_ACTION_TYPES.UPDATE_TAGS]: "tags",
-  [FORM_ACTION_TYPES.UPDATE_CATEGORIES]: "categories",
-  [FORM_ACTION_TYPES.UPDATE_AUTHOR]: "author",
-  [FORM_ACTION_TYPES.UPDATE_PREVIEW_IMAGE]: "previewImage",
-  [FORM_ACTION_TYPES.UPDATE_START_DATE]: "startDate",
-  [FORM_ACTION_TYPES.UPDATE_START_TIME]: "startTime",
-  [FORM_ACTION_TYPES.UPDATE_END_DATE]: "endDate",
-  [FORM_ACTION_TYPES.UPDATE_END_TIME]: "endTime",
-  [FORM_ACTION_TYPES.UPDATE_OTHER_IMAGES]: "otherImages",
-  [FORM_ACTION_TYPES.UPDATE_BODY]: "body",
+export const FIELD_ACTION_MAP = {
+  title: FORM_ACTION_TYPES.UPDATE_TITLE,
+  tags: FORM_ACTION_TYPES.UPDATE_TAGS,
+  categories: FORM_ACTION_TYPES.UPDATE_CATEGORIES,
+  author: FORM_ACTION_TYPES.UPDATE_AUTHOR,
+  previewImage: FORM_ACTION_TYPES.UPDATE_PREVIEW_IMAGE,
+  startDate: FORM_ACTION_TYPES.UPDATE_START_DATE,
+  startTime: FORM_ACTION_TYPES.UPDATE_START_TIME,
+  endDate: FORM_ACTION_TYPES.UPDATE_END_DATE,
+  endTime: FORM_ACTION_TYPES.UPDATE_END_TIME,
+  otherImages: FORM_ACTION_TYPES.UPDATE_OTHER_IMAGES,
+  body: FORM_ACTION_TYPES.UPDATE_BODY,
 }
 
 export interface FormActions {
   type: FORM_ACTION_TYPES;
-  payload: FormDataProps;
+  payload: FormFields;
 }
 
 // update fields that are strings
-export const updateField = (type: FORM_ACTION_TYPES, fieldName: keyof FormDataProps, value: string): FormActions => {
+export const updateField = (type: FORM_ACTION_TYPES, fieldName: keyof FormFields, value: string): FormActions => {
   return {
     type: type,
     payload: {
       [fieldName]: value
-    } as unknown as FormDataProps
+    } as unknown as FormFields
   }
 }
 
-// update fields that are FileLists
-export const updateImage = (type: FORM_ACTION_TYPES, fieldName: keyof FormDataProps, files: FileList): FormActions => {
+// update image fields
+export const updateImage = (type: FORM_ACTION_TYPES, fieldName: keyof FormFields, files: FileList): FormActions => {
   return {
     type: type,
     payload: {
       [fieldName]: files
-    } as unknown as FormDataProps
+    } as unknown as FormFields
   }
 }

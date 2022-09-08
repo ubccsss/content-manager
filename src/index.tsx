@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {AppProvider} from "./contexts/contexts";
 
 // define forEach for FileList
 declare global {
@@ -20,6 +21,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+    <AppProvider>
+      <App/>
+    </AppProvider>
   </React.StrictMode>
 );

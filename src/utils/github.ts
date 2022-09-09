@@ -180,7 +180,7 @@ export const createEvent = async (state: FormFields) => {
     sha: newCommitSha
   })
 
-  // Make a PR to merge the new branch into the base branch
+  // make a PR to merge the new branch into the base branch
   const newPR = await octokit.rest.pulls.create({
     owner: OWNER,
     repo: REPO,
@@ -188,6 +188,14 @@ export const createEvent = async (state: FormFields) => {
     body: 'This is an auto-generated PR made using: https://github.com/ubccsss/content-manager',
     head: newBranchName,
     base: BASE_BRANCH
+  })
+
+  // add 'create event' label to PR
+  await octokit.rest.issues.addLabels({
+    owner: OWNER,
+    repo: REPO,
+    issue_number: newPR.data.number,
+    labels: ['create event']
   })
 
   // return response containing new PR data

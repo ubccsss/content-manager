@@ -17,11 +17,18 @@ const App = () => {
       {
         alert.show &&
           <div className="w-100 d-flex align-items-center justify-content-center position-fixed">
-              <Alert variant={alert.variant} onClose={() => dispatch(updateAlertShow(false))} dismissible style={{maxWidth: "75%"}}>
-                <p>
-                  {alert.message}
-                </p>
-                  <Alert.Link href={alert.url}>{alert.urlText}</Alert.Link>
+              <Alert
+                  variant={alert.variant}
+                  onClose={() => dispatch(updateAlertShow(false))}
+                  dismissible style={{maxWidth: "75%"}}
+              >
+                  <div dangerouslySetInnerHTML={{__html: alert.message}}/>
+                {alert.url && alert.urlText && (
+                  <>
+                    <br/>
+                    <Alert.Link href={alert.url}>{alert.urlText}</Alert.Link>
+                  </>
+                )}
               </Alert>
           </div>
       }

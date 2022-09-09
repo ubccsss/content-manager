@@ -71,7 +71,7 @@ export const OutputPreview = () => {
     }
     const prefix = getFileNamePrefix(store.preferences.prefixDate);
     const prefixRegex = getFileNamePrefixRegex(store.preferences.prefixDate);
-    const regex = new RegExp(isMarkdown ? `\!\\[(.*)\\]\\((${prefixRegex}.*\)\\)` : `<img src="(${prefixRegex}.*)" alt="(.*)">`, "g");
+    const regex = new RegExp(isMarkdown ? `\!\\[(.*)\\]\\((${prefixRegex}.*)\\)` : `<img src="(${prefixRegex}.*)" alt="(.*)">`, "g");
     return input.replaceAll(regex, (match, p1, p2) => {
       let alt: string, src: string;
       if (isMarkdown) {

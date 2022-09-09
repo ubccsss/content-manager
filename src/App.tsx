@@ -6,6 +6,7 @@ import {formInitialState} from './contexts/contexts';
 import {RepoIcons} from "./components/RepoIcons";
 import {AlertComponent} from "./components/AlertComponent";
 import {PreferencesComponent} from "./components/PreferencesComponent";
+import {FullScreenPreview} from "./components/FullScreenPreview";
 
 const App = () => {
   const [isMarkdownPreview, setIsMarkdownPreview] = React.useState(true);
@@ -16,6 +17,7 @@ const App = () => {
       <Container fluid>
         <Row xs={1} lg={2} className="row-height">
           <Col className="scrollable pb-4 pt-4">
+            <FullScreenPreview/>
             <PreferencesComponent/>
             <h1>Create New Event</h1>
             <i className="float-end text-secondary">fields marked with * are required</i>

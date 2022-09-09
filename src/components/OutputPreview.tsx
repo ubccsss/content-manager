@@ -6,7 +6,11 @@ import {useStore} from "../contexts/contexts";
 import {getFileNamePrefix, getFileNamePrefixRegex} from "../utils/utils";
 import styles from "./OutputPreview.module.css"
 
-export const OutputPreview = () => {
+interface OutputPreviewProps {
+  showHeader?: boolean
+}
+
+export const OutputPreview = ({showHeader = true}: OutputPreviewProps) => {
   const store = useStore();
   const {
     body,
@@ -119,7 +123,7 @@ export const OutputPreview = () => {
     <strong>categories:</strong>
     ${renderCSVToString(categories)}
   </div>
-  <br/>
+  <hr>
   
   ${renderBody(body).replaceMarkdown().replaceHTML().value()}
   
@@ -127,8 +131,12 @@ export const OutputPreview = () => {
 
   return (
     <>
-      <h1>Output</h1>
-      <hr className={styles.dashed}/>
+      {showHeader && (
+        <>
+          <h1>Output</h1>
+          <hr className={styles.dashed}/>
+        </>
+      )}
       <ReactMarkdown rehypePlugins={[rehypeRaw]}>
         {markdown}
       </ReactMarkdown>

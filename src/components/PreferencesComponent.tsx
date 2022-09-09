@@ -1,9 +1,9 @@
 import {Sliders2} from 'react-bootstrap-icons'
 import {Form, Modal} from "react-bootstrap";
 import React, {useState} from "react";
-import styles from "./SettingsComponent.module.css";
 import {useDispatch, useStore} from "../contexts/contexts";
 import {updatePrefixDate} from "../reducers/PreferencesActions";
+import styles from "./PreferencesComponent.module.css";
 
 export const PreferencesComponent = () => {
   const [show, setShow] = useState(false);

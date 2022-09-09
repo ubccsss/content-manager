@@ -1,0 +1,26 @@
+.arrows {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: var(--bs-primary);
+}
+
+.arrows svg {
+    color: var(--bs-dark);
+}
+
+.arrows svg:hover {
+    color: var(--bs-primary);
+}
+
+@media screen and (min-width: 768px) {
+    .dialogWidth {
+        max-width: 720px !important;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .dialogWidth {
+        max-width: 960px !important;
+    }
+}

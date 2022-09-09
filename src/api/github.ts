@@ -1,4 +1,4 @@
-import {getCurrentDate, getFileName, getNewEventFileContent, readFile} from "./utils";
+import {getCurrentDate, getFileName, getNewEventFileContent, readFile} from "../utils";
 import {Octokit} from "@octokit/rest";
 import {BASE_BRANCH, OWNER, REPO} from "../constants/constants";
 import {Buffer} from "buffer";

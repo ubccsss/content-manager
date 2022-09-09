@@ -2,7 +2,7 @@ import {Button, ButtonGroup, Col, Form, Row} from "react-bootstrap";
 import React from "react";
 import {FormFields} from "../reducers/FormReducer";
 import {Formik} from "formik";
-import {createEvent} from "../utils/github";
+import {createEvent} from "../api/github";
 import {FIELD_ACTION_MAP, updateField, updateImage} from "../reducers/FormActions";
 import * as yup from 'yup';
 import {Field, FieldComponent} from "./FieldComponent";

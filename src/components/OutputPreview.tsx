@@ -1,9 +1,8 @@
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import ReactDOMServer from 'react-dom/server';
-import {delimitCSV, getLink, getPublishDate} from "../utils";
+import {delimitCSV, getLink, getPublishDate, getFileNamePrefix, getFileNamePrefixRegex} from "../utils";
 import {useStore} from "../contexts/contexts";
-import {getFileNamePrefix, getFileNamePrefixRegex} from "../utils/utils";
 
 export const OutputPreview = () => {
   const store = useStore();

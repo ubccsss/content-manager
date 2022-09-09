@@ -1,13 +1,17 @@
 import React from 'react';
 import './App.css';
 import {Container, Row} from "react-bootstrap";
-import {FormComponent, MarkdownPreview, OutputPreview} from "./components";
+import {
+  AlertComponent,
+  FormComponent,
+  FullScreenPreviewModal,
+  Icon,
+  MarkdownPreview,
+  OutputPreview,
+  PreferencesModal,
+  ScrollableCol
+} from "./components";
 import {formInitialState} from './contexts/contexts';
-import {AlertComponent} from "./components/AlertComponent";
-import {PreferencesModal} from "./components/PreferencesModal";
-import {FullScreenPreviewModal} from "./components/FullScreenPreviewModal";
-import {Icon} from "./components/Icon";
-import {ScrollableCol} from "./components/ScrollableCol";
 
 const App = () => {
   const [isMarkdownPreview, setIsMarkdownPreview] = React.useState(true);

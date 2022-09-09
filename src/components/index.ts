@@ -2,3 +2,8 @@ export {MarkdownPreview} from "./MarkdownPreview";
 export {OutputPreview} from "./OutputPreview";
 export {FieldComponent} from "./FieldComponent";
 export {FormComponent} from "./FormComponent";
+export {AlertComponent} from "./AlertComponent";
+export {FullScreenPreviewModal} from "./FullScreenPreviewModal";
+export {Icon} from "./Icon";
+export {PreferencesModal} from "./PreferencesModal";
+export {ScrollableCol} from "./ScrollableCol";

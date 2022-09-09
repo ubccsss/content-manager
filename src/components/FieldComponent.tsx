@@ -4,7 +4,7 @@ import {FORM_ACTION_TYPES} from "../reducers/FormActions";
 import {FormFields} from "../reducers/FormReducer";
 import {useStore} from "../contexts/contexts";
 import styles from "./FieldComponent.module.css";
-import {getFileName} from "../utils/utils";
+import {getFileName} from "../utils";
 
 export interface Field {
   label: string;

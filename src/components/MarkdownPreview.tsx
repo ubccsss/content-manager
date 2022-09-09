@@ -13,7 +13,7 @@ export const MarkdownPreview = () => {
         style={atomOneLight}
         language={"markdown"}
         wrapLongLines={true}
-        customStyle={{overflow: "hidden"}}
+        customStyle={{overflow: "hidden", width: "100%"}}
       >
         {getNewEventFileContent(store)}
       </SyntaxHighlighter>

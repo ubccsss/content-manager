@@ -1,9 +1,10 @@
-import {getCurrentDate, readFile} from "./utils";
+import {getCurrentDate, getFileName, readFile} from "./utils";
 import {FormFields} from "../reducers/FormReducer";
 import {Octokit} from "@octokit/rest";
 import {BASE_BRANCH, OWNER, REPO} from "../constants/constants";
 import {Buffer} from "buffer";
 import {OctokitResponse} from "@octokit/types";
+import {AppStore} from "../contexts/contexts";
 
 // returns new branch name
 const getNewBranchName = () => {
@@ -53,7 +54,9 @@ ${body}
 // Official GitHub API Docs: https://docs.github.com/en/rest
 // Python reference for pushing to GitHub using the REST API: https://gist.github.com/harlantwood/2935203
 // Post on committing images: https://stackoverflow.com/questions/65333387/commit-image-in-git-tree-using-the-github-api
-export const createEvent = async (state: FormFields) => {
+export const createEvent = async (store: AppStore) => {
+  const {form, preferences} = store;
+
   // create new octokit instance with auth token
   const octokit = new Octokit({
     auth: process.env.REACT_APP_TOKEN
@@ -96,13 +99,13 @@ export const createEvent = async (state: FormFields) => {
   let binaryImagePromises: Promise<any>[] = [];
   let imageNames: string[] = [];
   // push readFile promise for previewImage to binaryImagePromises
-  if (state.previewImage) {
-    binaryImagePromises.push(readFile(state.previewImage[0]));
-    imageNames.push(state.previewImage[0].name);
+  if (form.previewImage) {
+    binaryImagePromises.push(readFile(form.previewImage[0]));
+    imageNames.push(form.previewImage[0].name);
   }
   // push readFile promise for otherImages to binaryImagePromises
-  if (state.otherImages) {
-    state.otherImages.forEach((file) => {
+  if (form.otherImages) {
+    form.otherImages.forEach((file) => {
       binaryImagePromises.push(readFile(file));
       imageNames.push(file.name);
     });
@@ -133,7 +136,7 @@ export const createEvent = async (state: FormFields) => {
   // create a new tree with the blobs
   const treeObjects = imageBlobs.map((blob, index) => {
     return {
-      path: `static/files/${imageNames[index]}`,
+      path: `static${getFileName(imageNames[index], preferences.prefixDate)}`,
       mode: '100644',
       type: 'blob',
       sha: blob.data.sha
@@ -146,10 +149,10 @@ export const createEvent = async (state: FormFields) => {
     repo: REPO,
     tree: [
       {
-        path: getEventPath(state.title),
+        path: getEventPath(form.title),
         mode: "100644",
         type: "blob",
-        content: getNewEventFileContent(state)
+        content: getNewEventFileContent(form)
       },
       // empty treeObjects(images) into newContentTree
       ...treeObjects
@@ -164,7 +167,7 @@ export const createEvent = async (state: FormFields) => {
   const newCommit = await octokit.rest.git.createCommit({
     owner: OWNER,
     repo: REPO,
-    message: `Add new event ${state.title}`,
+    message: `Add new event ${form.title}`,
     tree: newContentTreeSha,
     parents: [lastCommitSha]
   })
@@ -180,14 +183,22 @@ export const createEvent = async (state: FormFields) => {
     sha: newCommitSha
   })
 
-  // Make a PR to merge the new branch into the base branch
+  // make a PR to merge the new branch into the base branch
   const newPR = await octokit.rest.pulls.create({
     owner: OWNER,
     repo: REPO,
-    title: `Added new event: ${state.title} by ${state.author}`,
+    title: `Added new event: ${form.title} by ${form.author}`,
     body: 'This is an auto-generated PR made using: https://github.com/ubccsss/content-manager',
     head: newBranchName,
     base: BASE_BRANCH
+  })
+
+  // add 'create event' label to PR
+  await octokit.rest.issues.addLabels({
+    owner: OWNER,
+    repo: REPO,
+    issue_number: newPR.data.number,
+    labels: ['create event']
   })
 
   // return response containing new PR data

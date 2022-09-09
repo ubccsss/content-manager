@@ -85,6 +85,6 @@ export const formSchema: any = {
     placeholder: "image markdown syntax: ![](/files/image_name.png)",
     actionType: FORM_ACTION_TYPES.UPDATE_BODY,
     name: "body",
-    rows: 10
+    rows: 25
   }
 }

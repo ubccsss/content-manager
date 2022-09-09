@@ -9,6 +9,7 @@ import {Field, FieldComponent} from "./FieldComponent";
 import {useDispatch, useStore} from "../contexts/contexts";
 import {formSchema} from "../constants/formSchema";
 import {updateAlert} from "../reducers/AlertActions";
+import {AlertData} from "../reducers/AlertReducer";
 
 // validate date and time
 const validateDateTime = (schema: any, field: string, type: "date" | "time") => {
@@ -54,7 +55,7 @@ interface FormComponentProps {
 }
 
 export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponentProps) => {
-  const state = useStore();
+  const store = useStore();
   const dispatch = useDispatch();
 
   const showOutput = () => {
@@ -82,14 +83,23 @@ export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponen
     <Formik
       validationSchema={validationSchema}
       onSubmit={async () => {
-        const {title, html_url} = await createEvent(state.form);
-        dispatch(updateAlert({
-          show: true,
-          message: `Successfully created event: ${title}`,
-          variant: 'success',
-          url: html_url,
-          urlText: 'Click here to see the PR and deploy preview.'
-        }))
+        try {
+          const {title, html_url} = await createEvent(store);
+          dispatch(updateAlert({
+            show: true,
+            message: `Successfully created event: ${title}`,
+            variant: 'success',
+            url: html_url,
+            urlText: 'Click here to see the PR and deploy preview.'
+          }))
+        } catch (e : unknown) {
+          const message = e instanceof Error ? e.message : String(e)
+          dispatch(updateAlert({
+            show: true,
+            message: `Error creating event: <b><i>${message}</i></b> <br/> Check the console and contact a webmaster.`,
+            variant: 'danger',
+          } as AlertData))
+        }
       }}
       initialValues={initialState}
     >

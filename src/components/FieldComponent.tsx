@@ -4,6 +4,7 @@ import {FORM_ACTION_TYPES} from "../reducers/FormActions";
 import {FormFields} from "../reducers/FormReducer";
 import {useStore} from "../contexts/contexts";
 import styles from "./FieldComponent.module.css";
+import {getFileName} from "../utils/utils";
 
 export interface Field {
   label: string;
@@ -57,7 +58,7 @@ export const FieldComponent = ({
         <Form.Control.Feedback type="valid">
           <ul className={styles.dashed}>
             {Array.from(files).map((file, index) => (
-              <li key={index}>{`/files/${file.name}`}</li>
+              <li key={index}>{getFileName(file.name, store.preferences.prefixDate)}</li>
             ))}
           </ul>
         </Form.Control.Feedback>

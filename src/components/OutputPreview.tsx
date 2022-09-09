@@ -3,6 +3,7 @@ import rehypeRaw from 'rehype-raw'
 import ReactDOMServer from 'react-dom/server';
 import {delimitCSV, getLink, getPublishDate} from "../utils";
 import {useStore} from "../contexts/contexts";
+import {getFileNamePrefix, getFileNamePrefixRegex} from "../utils/utils";
 
 export const OutputPreview = () => {
   const store = useStore();
@@ -68,7 +69,9 @@ export const OutputPreview = () => {
     if (!otherImages && !previewImage) {
       return input;
     }
-    const regex = isMarkdown ? /!\[(.*)\]\((\/files\/.*)\)/g : /<img src="(\/files\/.*)" alt="(.*)">/g;
+    const prefix = getFileNamePrefix(store.preferences.prefixDate);
+    const prefixRegex = getFileNamePrefixRegex(store.preferences.prefixDate);
+    const regex = new RegExp(isMarkdown ? `\!\\[(.*)\\]\\((${prefixRegex}.*)\\)` : `<img src="(${prefixRegex}.*)" alt="(.*)">`, "g");
     return input.replaceAll(regex, (match, p1, p2) => {
       let alt: string, src: string;
       if (isMarkdown) {
@@ -78,7 +81,7 @@ export const OutputPreview = () => {
         alt = p2;
         src = p1;
       }
-      src = src.replaceAll("/files/", "");
+      src = src.replaceAll(prefix, "");
       const image = otherImages ? Array.from(otherImages).find((image) => image.name === src) : null;
       if (image) {
         // replace with link to uploaded otherImages

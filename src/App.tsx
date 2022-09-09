@@ -28,10 +28,9 @@ const App = () => {
             />
           </Col>
           <Col className="scrollable pb-4 pt-lg-4 pt-0">
-            <div className="float-end pt-lg-2">
-              <Icon iconName={"Github"} size={32} href="https://github.com/ubccsss/content-manager"/>
-              <Icon iconName={"Box"} size={32} href="https://github.com/ubccsss/ubccsss.org"/>
-            </div>
+            <Icon iconName={"Github"} size={32} href="https://github.com/ubccsss/content-manager"
+                  buttonClassName="float-end"/>
+            <Icon iconName={"Box"} size={32} href="https://github.com/ubccsss/ubccsss.org" buttonClassName="float-end"/>
             {isMarkdownPreview ? <MarkdownPreview/> : <OutputPreview/>}
           </Col>
         </Row>

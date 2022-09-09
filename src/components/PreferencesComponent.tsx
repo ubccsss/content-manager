@@ -1,9 +1,8 @@
-import {Sliders2} from 'react-bootstrap-icons'
 import {Form, Modal} from "react-bootstrap";
 import React, {useState} from "react";
 import {useDispatch, useStore} from "../contexts/contexts";
 import {updatePrefixDate} from "../reducers/PreferencesActions";
-import styles from "./PreferencesComponent.module.css";
+import {Icon} from "./Icon";
 
 export const PreferencesComponent = () => {
   const [show, setShow] = useState(false);
@@ -40,9 +39,7 @@ export const PreferencesComponent = () => {
         </Modal.Body>
       </Modal>
 
-      <button className={`${styles.gear} float-end pt-lg-2`} onClick={handleShow}>
-        <Sliders2 size={24}/>
-      </button>
+      <Icon iconName="Sliders2" size={24} onClick={handleShow} buttonClassName="float-end"/>
     </>
   )
 }

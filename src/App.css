@@ -20,3 +20,19 @@
         -ms-overflow-style: none !important;
     }
 }
+
+/* custom react-bootstrap Button variant for Icon.tsx */
+.btn-icon {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: var(--bs-primary);
+}
+
+.btn-icon svg {
+    color: var(--bs-dark);
+}
+
+.btn-icon svg:hover {
+    color: var(--bs-primary);
+}

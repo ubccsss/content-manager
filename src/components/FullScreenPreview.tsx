@@ -1,8 +1,8 @@
-import {ArrowsFullscreen} from 'react-bootstrap-icons'
 import {Modal} from "react-bootstrap";
 import React, {useState} from "react";
 import {OutputPreview} from "./OutputPreview";
 import styles from "./FullScreenPreview.module.css";
+import {Icon} from "./Icon";
 
 export const FullScreenPreview = () => {
   const [show, setShow] = useState(false);
@@ -29,9 +29,7 @@ export const FullScreenPreview = () => {
         </Modal.Body>
       </Modal>
 
-      <button className={`${styles.arrows} float-end pt-lg-2`} onClick={handleShow}>
-        <ArrowsFullscreen size={18}/>
-      </button>
+      <Icon iconName="ArrowsFullscreen" size={18} onClick={handleShow} buttonClassName="float-end"/>
     </>
   )
 }

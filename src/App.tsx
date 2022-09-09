@@ -3,10 +3,11 @@ import './App.css';
 import {Col, Container, Row} from "react-bootstrap";
 import {FormComponent, MarkdownPreview, OutputPreview} from "./components";
 import {formInitialState} from './contexts/contexts';
-import {RepoIcons} from "./components/RepoIcons";
 import {AlertComponent} from "./components/AlertComponent";
 import {PreferencesComponent} from "./components/PreferencesComponent";
 import {FullScreenPreview} from "./components/FullScreenPreview";
+import {Box, Github} from "react-bootstrap-icons";
+import {Icon} from "./components/Icon";
 
 const App = () => {
   const [isMarkdownPreview, setIsMarkdownPreview] = React.useState(true);
@@ -27,7 +28,10 @@ const App = () => {
             />
           </Col>
           <Col className="scrollable pb-4 pt-lg-4 pt-0">
-            <RepoIcons/>
+            <div className="float-end pt-lg-2">
+              <Icon iconName={"Github"} size={32} href="https://github.com/ubccsss/content-manager"/>
+              <Icon iconName={"Box"} size={32} href="https://github.com/ubccsss/ubccsss.org"/>
+            </div>
             {isMarkdownPreview ? <MarkdownPreview/> : <OutputPreview/>}
           </Col>
         </Row>

@@ -4,13 +4,8 @@ import ReactDOMServer from 'react-dom/server';
 import {delimitCSV, getLink, getPublishDate} from "../utils";
 import {useStore} from "../contexts/contexts";
 import {getFileNamePrefix, getFileNamePrefixRegex} from "../utils/utils";
-import styles from "./OutputPreview.module.css"
 
-interface OutputPreviewProps {
-  showHeader?: boolean
-}
-
-export const OutputPreview = ({showHeader = true}: OutputPreviewProps) => {
+export const OutputPreview = () => {
   const store = useStore();
   const {
     body,
@@ -130,16 +125,8 @@ export const OutputPreview = ({showHeader = true}: OutputPreviewProps) => {
   `;
 
   return (
-    <>
-      {showHeader && (
-        <>
-          <h1>Output</h1>
-          <hr className={styles.dashed}/>
-        </>
-      )}
-      <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-        {markdown}
-      </ReactMarkdown>
-    </>
+    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+      {markdown}
+    </ReactMarkdown>
   );
 }

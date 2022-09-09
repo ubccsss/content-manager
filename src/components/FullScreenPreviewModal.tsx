@@ -1,10 +1,10 @@
 import {Modal} from "react-bootstrap";
 import React, {useState} from "react";
 import {OutputPreview} from "./OutputPreview";
-import styles from "./FullScreenPreview.module.css";
+import styles from "./FullScreenPreviewModal.module.css";
 import {Icon} from "./Icon";
 
-export const FullScreenPreview = () => {
+export const FullScreenPreviewModal = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -25,11 +25,11 @@ export const FullScreenPreview = () => {
           <Modal.Title>Use <code>Inspect Element</code> to test on different device widths</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <OutputPreview showHeader={false}/>
+          <OutputPreview/>
         </Modal.Body>
       </Modal>
 
-      <Icon iconName="ArrowsFullscreen" size={20} onClick={handleShow} buttonClassName="float-end pt-lg-2"/>
+      <Icon iconName="ArrowsFullscreen" size={20} onClick={handleShow}/>
     </>
   )
 }

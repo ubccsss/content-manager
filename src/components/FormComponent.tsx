@@ -1,4 +1,4 @@
-import {Button, ButtonGroup, ButtonToolbar, Col, Dropdown, DropdownButton, Form, Row} from "react-bootstrap";
+import {Button, ButtonGroup, Col, Form, Row} from "react-bootstrap";
 import React from "react";
 import {FormFields} from "../reducers/FormReducer";
 import {Formik} from "formik";
@@ -51,20 +51,11 @@ const validationSchema = yup.object().shape({
 
 interface FormComponentProps {
   initialState: FormFields;
-  setIsMarkdownPreview: (isMarkdownPreview: boolean) => void;
 }
 
-export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponentProps) => {
+export const FormComponent = ({initialState}: FormComponentProps) => {
   const store = useStore();
   const dispatch = useDispatch();
-
-  const showOutput = () => {
-    setIsMarkdownPreview(false);
-  }
-
-  const showMarkdown = () => {
-    setIsMarkdownPreview(true);
-  }
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = event.target.name as keyof FormFields;
@@ -153,17 +144,9 @@ export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponen
               </React.Fragment>
             )
           })}
-          <ButtonToolbar aria-label="Toolbar with button groups">
-            <ButtonGroup className="me-2">
-              <DropdownButton as={ButtonGroup} title="Preview" id="bg-nested-dropdown">
-                <Dropdown.Item onClick={showMarkdown}>Markdown</Dropdown.Item>
-                <Dropdown.Item onClick={showOutput}>Output</Dropdown.Item>
-              </DropdownButton>
-            </ButtonGroup>
-            <ButtonGroup>
-              <Button variant="primary" type="submit" disabled={!isValid || !dirty || isSubmitting}>Create Event</Button>
-            </ButtonGroup>
-          </ButtonToolbar>
+          <ButtonGroup>
+            <Button variant="primary" type="submit" disabled={!isValid || !dirty || isSubmitting}>Create Event</Button>
+          </ButtonGroup>
         </Form>
       )}
     </Formik>

@@ -7,16 +7,13 @@ export const MarkdownPreview = () => {
   const store = useStore();
 
   return (
-    <>
-      <h1>Markdown</h1>
-      <SyntaxHighlighter
-        style={atomOneLight}
-        language={"markdown"}
-        wrapLongLines={true}
-        customStyle={{overflow: "hidden", width: "100%"}}
-      >
-        {getNewEventFileContent(store)}
-      </SyntaxHighlighter>
-    </>
+    <SyntaxHighlighter
+      style={atomOneLight}
+      language={"markdown"}
+      wrapLongLines={true}
+      customStyle={{overflow: "hidden", width: "100%"}}
+    >
+      {getNewEventFileContent(store)}
+    </SyntaxHighlighter>
   );
 }

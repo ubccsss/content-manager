@@ -4,7 +4,7 @@ import {useDispatch, useStore} from "../contexts/contexts";
 import {updatePrefixDate} from "../reducers/PreferencesActions";
 import {Icon} from "./Icon";
 
-export const PreferencesComponent = () => {
+export const PreferencesModal = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -39,7 +39,7 @@ export const PreferencesComponent = () => {
         </Modal.Body>
       </Modal>
 
-      <Icon iconName="Sliders2" size={24} onClick={handleShow} buttonClassName="float-end pt-lg-2"/>
+      <Icon iconName="Sliders2" size={24} onClick={handleShow}/>
     </>
   )
 }

@@ -1,3 +1,5 @@
+/* scrollable columns */
+/* https://codepen.io/aneekul/post/columnar-independence */
 @media only screen and (min-width: 992px) {
     /*Set the row height to the viewport*/
     .row-height{
@@ -35,4 +37,13 @@
 
 .btn-icon svg:hover {
     color: var(--bs-primary);
+}
+
+/* dashed hr line*/
+/* https://codepen.io/erikz/pen/xLVKqe */
+hr.dashed {
+    border: none;
+    height: 1px;
+    background: #000;
+    background: repeating-linear-gradient(90deg,#000,#000 10px,transparent 10px,transparent 20px);
 }

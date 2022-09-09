@@ -1,5 +1,4 @@
-import {getCurrentDate, getFileName, readFile} from "./utils";
-import {FormFields} from "../reducers/FormReducer";
+import {getCurrentDate, getFileName, getNewEventFileContent, readFile} from "./utils";
 import {Octokit} from "@octokit/rest";
 import {BASE_BRANCH, OWNER, REPO} from "../constants/constants";
 import {Buffer} from "buffer";
@@ -21,34 +20,6 @@ const getEventPath = (title: string) => {
   return `content/events/${getEventFileName(title)}`;
 }
 
-// returns content for event file
-const getNewEventFileContent = (state: FormFields) => {
-  const {body, categories, previewImage, startDate, startTime, endDate, endTime, tags, title, author} = state;
-  return (
-    `---
-# The title of the event
-title: ${title}
-# Publishing date when the event appears, not the date of the event.
-date: ${getCurrentDate()}
-# Tags that apply to the event
-tags: [${tags}]
-categories: [${categories}]
-# Name of the author (you)
-author: ${author}
-# Images associated to this event. Used for banner.
-images:
-  - /files/${previewImage ? previewImage[0].name : ""}
-# Start date and time. Used for calendar page.
-start_date: ${startDate} ${startTime}
-# End date and time (defaults to one hour after start). Used for calendar page.
-end_date: ${endDate} ${endTime}
----
-
-${body}
-`
-  );
-}
-
 // Creates a new branch and commits the new event file and images to the branch
 // Then creates a pull request to merge the branch into the base branch
 // Official GitHub API Docs: https://docs.github.com/en/rest
@@ -56,6 +27,7 @@ ${body}
 // Post on committing images: https://stackoverflow.com/questions/65333387/commit-image-in-git-tree-using-the-github-api
 export const createEvent = async (store: AppStore) => {
   const {form, preferences} = store;
+  const {title, author, previewImage, otherImages} = form;
 
   // create new octokit instance with auth token
   const octokit = new Octokit({
@@ -99,13 +71,13 @@ export const createEvent = async (store: AppStore) => {
   let binaryImagePromises: Promise<any>[] = [];
   let imageNames: string[] = [];
   // push readFile promise for previewImage to binaryImagePromises
-  if (form.previewImage) {
-    binaryImagePromises.push(readFile(form.previewImage[0]));
-    imageNames.push(form.previewImage[0].name);
+  if (previewImage) {
+    binaryImagePromises.push(readFile(previewImage[0]));
+    imageNames.push(previewImage[0].name);
   }
   // push readFile promise for otherImages to binaryImagePromises
-  if (form.otherImages) {
-    form.otherImages.forEach((file) => {
+  if (otherImages) {
+    otherImages.forEach((file) => {
       binaryImagePromises.push(readFile(file));
       imageNames.push(file.name);
     });
@@ -149,10 +121,10 @@ export const createEvent = async (store: AppStore) => {
     repo: REPO,
     tree: [
       {
-        path: getEventPath(form.title),
+        path: getEventPath(title),
         mode: "100644",
         type: "blob",
-        content: getNewEventFileContent(form)
+        content: getNewEventFileContent(store)
       },
       // empty treeObjects(images) into newContentTree
       ...treeObjects
@@ -167,7 +139,7 @@ export const createEvent = async (store: AppStore) => {
   const newCommit = await octokit.rest.git.createCommit({
     owner: OWNER,
     repo: REPO,
-    message: `Add new event ${form.title}`,
+    message: `Add new event ${title}`,
     tree: newContentTreeSha,
     parents: [lastCommitSha]
   })
@@ -187,7 +159,7 @@ export const createEvent = async (store: AppStore) => {
   const newPR = await octokit.rest.pulls.create({
     owner: OWNER,
     repo: REPO,
-    title: `Added new event: ${form.title} by ${form.author}`,
+    title: `Added new event: ${title} by ${author}`,
     body: 'This is an auto-generated PR made using: https://github.com/ubccsss/content-manager',
     head: newBranchName,
     base: BASE_BRANCH

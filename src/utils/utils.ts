@@ -1,4 +1,5 @@
 import {MONTHS_MAP} from "../constants/constants";
+import {AppStore} from "../contexts/contexts";
 
 // returns a promise that returns a file as a raw binary string when resolved
 export const readFile = (file: Blob) => {
@@ -61,4 +62,34 @@ export const getFileName = (name: string, prefixDate: boolean) => {
 // returns regex for file name prefix
 export const getFileNamePrefixRegex = (prefixDate: boolean) => {
   return "\/files\/" + (prefixDate ? getCurrentDate() + "-" : "");
+}
+
+// returns content for event file
+export const getNewEventFileContent = (store: AppStore) => {
+  const {body, categories, previewImage, startDate, startTime, endDate, endTime, tags, title, author} = store.form;
+  const {prefixDate} = store.preferences;
+
+  return (
+    `---
+# The title of the event
+title: ${title}
+# Publishing date when the event appears, not the date of the event.
+date: ${getCurrentDate()}
+# Tags that apply to the event
+tags: [${tags}]
+categories: [${categories}]
+# Name of the author (you)
+author: ${author}
+# Images associated to this event. Used for banner.
+images:
+  - ${previewImage ? getFileName(previewImage[0].name, prefixDate) : ""}
+# Start date and time. Used for calendar page.
+start_date: ${startDate} ${startTime}
+# End date and time (defaults to one hour after start). Used for calendar page.
+end_date: ${endDate} ${endTime}
+---
+
+${body}
+`
+  );
 }

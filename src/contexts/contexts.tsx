@@ -4,14 +4,17 @@ import {FormFields, FormReducer} from "../reducers/FormReducer";
 import {FormActions} from "../reducers/FormActions";
 import {AlertActions} from "../reducers/AlertActions";
 import React, {createContext, useContext, useReducer} from "react";
+import {Preferences, PreferencesReducer} from "../reducers/PreferencesReducer";
+import {PreferencesActions} from "../reducers/PreferencesActions";
 
-interface AppState {
+export interface AppStore {
   form: FormFields;
   alert: AlertData;
+  preferences: Preferences;
 }
 
-type Actions = FormActions | AlertActions;
-type AppReducer = (state: AppState, action: Actions) => AppState;
+type Actions = FormActions | AlertActions | PreferencesActions;
+type AppReducer = (state: AppStore, action: Actions) => AppStore;
 
 export const formInitialState: FormFields = {
   title: "",
@@ -35,14 +38,19 @@ const alertInitialState: AlertData = {
   variant: undefined
 }
 
+const preferencesInitialState: Preferences = {
+  prefixDate: true
+}
+
 // combined reducers
 export const [appReducer, initialState] = combineReducers<AppReducer>({
   form: [FormReducer, formInitialState],
-  alert: [AlertReducer, alertInitialState]
+  alert: [AlertReducer, alertInitialState],
+  preferences: [PreferencesReducer, preferencesInitialState]
 });
 
-export const StateContext = createContext({} as AppState);
-export const DispatchContext = createContext({} as React.Dispatch<FormActions | AlertActions>);
+export const StateContext = createContext({} as AppStore);
+export const DispatchContext = createContext({} as React.Dispatch<Actions>);
 
 // provider gives access to store and dispatch
 export const AppProvider = ({children}: any) => {

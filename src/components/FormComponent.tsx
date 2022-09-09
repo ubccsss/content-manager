@@ -55,7 +55,7 @@ interface FormComponentProps {
 }
 
 export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponentProps) => {
-  const state = useStore();
+  const store = useStore();
   const dispatch = useDispatch();
 
   const showOutput = () => {
@@ -84,7 +84,7 @@ export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponen
       validationSchema={validationSchema}
       onSubmit={async () => {
         try {
-          const {title, html_url} = await createEvent(state.form);
+          const {title, html_url} = await createEvent(store);
           dispatch(updateAlert({
             show: true,
             message: `Successfully created event: ${title}`,

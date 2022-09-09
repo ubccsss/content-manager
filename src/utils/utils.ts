@@ -47,3 +47,18 @@ export const delimitCSV = (csv: string) => {
 export const getLink = (file: File) => {
   return URL.createObjectURL(file);
 }
+
+// returns file name prefix
+export const getFileNamePrefix = (prefixDate: boolean) => {
+  return prefixDate ? `/files/${getCurrentDate()}-` : '/files/';
+}
+
+// returns the new name of a file
+export const getFileName = (name: string, prefixDate: boolean) => {
+  return `${getFileNamePrefix(prefixDate)}${name}`;
+}
+
+// returns regex for file name prefix
+export const getFileNamePrefixRegex = (prefixDate: boolean) => {
+  return "\/files\/" + (prefixDate ? getCurrentDate() + "-" : "");
+}

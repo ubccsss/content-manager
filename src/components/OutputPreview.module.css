@@ -1,0 +1,6 @@
+hr.dashed {
+    border: none;
+    height: 1px;
+    background: #000;
+    background: repeating-linear-gradient(90deg,#000,#000 10px,transparent 10px,transparent 20px);
+}

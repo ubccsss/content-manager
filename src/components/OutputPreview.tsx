@@ -4,6 +4,7 @@ import ReactDOMServer from 'react-dom/server';
 import {delimitCSV, getLink, getPublishDate} from "../utils";
 import {useStore} from "../contexts/contexts";
 import {getFileNamePrefix, getFileNamePrefixRegex} from "../utils/utils";
+import styles from "./OutputPreview.module.css"
 
 export const OutputPreview = () => {
   const store = useStore();
@@ -127,6 +128,7 @@ export const OutputPreview = () => {
   return (
     <>
       <h1>Output</h1>
+      <hr className={styles.dashed}/>
       <ReactMarkdown rehypePlugins={[rehypeRaw]}>
         {markdown}
       </ReactMarkdown>

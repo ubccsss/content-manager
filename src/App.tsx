@@ -15,7 +15,7 @@ const App = () => {
       <AlertComponent/>
       <Container fluid>
         <Row xs={1} lg={2} className="row-height">
-          <Col className="scrollable pb-4 pb-lg-0">
+          <Col className="scrollable pb-4 pt-4">
             <PreferencesComponent/>
             <h1>Create New Event</h1>
             <i className="float-end text-secondary">fields marked with * are required</i>
@@ -24,7 +24,7 @@ const App = () => {
               setIsMarkdownPreview={setIsMarkdownPreview}
             />
           </Col>
-          <Col className="scrollable">
+          <Col className="scrollable pb-4 pt-lg-4 pt-0">
             <RepoIcons/>
             {isMarkdownPreview ? <MarkdownPreview/> : <OutputPreview/>}
           </Col>

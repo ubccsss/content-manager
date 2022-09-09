@@ -47,6 +47,8 @@ ${body}
       <SyntaxHighlighter
         style={atomOneLight}
         language={"markdown"}
+        wrapLongLines={true}
+        customStyle={{overflow: "hidden"}}
       >
         {markdown}
       </SyntaxHighlighter>

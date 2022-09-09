@@ -17,17 +17,19 @@ const App = () => {
       <AlertComponent/>
       <Container fluid>
         <Row xs={1} lg={2} className="row-height">
-          <Col className="scrollable pb-4 pt-4">
-            <FullScreenPreview/>
-            <PreferencesComponent/>
-            <h1>Create New Event</h1>
+          <Col className="scrollable pb-4">
+            <div className="position-sticky top-0 bg-white pt-3 pb-2">
+              <FullScreenPreview/>
+              <PreferencesComponent/>
+              <h1>Create New Event</h1>
+            </div>
             <i className="float-end text-secondary">fields marked with * are required</i>
             <FormComponent
               initialState={formInitialState}
               setIsMarkdownPreview={setIsMarkdownPreview}
             />
           </Col>
-          <Col className="scrollable pb-4 pt-lg-4 pt-0">
+          <Col className="scrollable pb-4 pt-lg-3 pt-0">
             <Icon iconName={"Github"} size={32} href="https://github.com/ubccsss/content-manager"
                   buttonClassName="float-end"/>
             <Icon iconName={"Box"} size={32} href="https://github.com/ubccsss/ubccsss.org" buttonClassName="float-end"/>

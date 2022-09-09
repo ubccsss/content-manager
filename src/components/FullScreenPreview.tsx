@@ -29,7 +29,7 @@ export const FullScreenPreview = () => {
         </Modal.Body>
       </Modal>
 
-      <Icon iconName="ArrowsFullscreen" size={18} onClick={handleShow} buttonClassName="float-end"/>
+      <Icon iconName="ArrowsFullscreen" size={20} onClick={handleShow} buttonClassName="float-end pt-lg-2"/>
     </>
   )
 }

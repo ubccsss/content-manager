@@ -39,7 +39,7 @@ export const PreferencesComponent = () => {
         </Modal.Body>
       </Modal>
 
-      <Icon iconName="Sliders2" size={24} onClick={handleShow} buttonClassName="float-end"/>
+      <Icon iconName="Sliders2" size={24} onClick={handleShow} buttonClassName="float-end pt-lg-2"/>
     </>
   )
 }

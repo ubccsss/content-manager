@@ -12,7 +12,7 @@ import {updateAlert} from "../reducers/AlertActions";
 import {AlertData} from "../reducers/AlertReducer";
 
 // validate date and time
-const validateDateTime = (schema: any, field: string, type: "date" | "time") => {
+export const validateDateTime = (schema: any, type: "date" | "time") => {
   const {startDate, startTime, endDate, endTime} = schema;
   if (startDate && startTime && endDate && endTime) {
     if (startDate === endDate && type === "date") {
@@ -34,16 +34,16 @@ const validationSchema = yup.object().shape({
   author: yup.string().required(),
   previewImage: yup.string().required(),
   startDate: yup.string().required().test('is-after', 'event must start before it ends', function () {
-    return validateDateTime(this.parent, this.path, "date");
+    return validateDateTime(this.parent, "date");
   }),
   startTime: yup.string().required().test('is-after', 'event must start before it ends', function () {
-    return validateDateTime(this.parent, this.path, "time");
+    return validateDateTime(this.parent, "time");
   }),
   endDate: yup.string().required().test('is-after', 'event must start before it ends', function () {
-    return validateDateTime(this.parent, this.path, "date");
+    return validateDateTime(this.parent, "date");
   }),
   endTime: yup.string().required().test('is-after', 'event must start before it ends', function () {
-    return validateDateTime(this.parent, this.path, "time");
+    return validateDateTime(this.parent, "time");
   }),
   otherImages: yup.string(),
   body: yup.string().required(),

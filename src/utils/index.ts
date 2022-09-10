@@ -9,5 +9,7 @@ export {
   getNewEventFileContent,
   getFileNamePrefix,
   getFileName,
-  getFileNamePrefixRegex
+  getFileNamePrefixRegex,
+  getTimeWithoutSeconds,
+  getFullDate
 } from './utils';

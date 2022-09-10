@@ -1,4 +1,4 @@
-import {MONTHS_MAP} from "../constants/constants";
+import {DAYS_OF_WEEK, MONTHS} from "../constants/constants";
 import {AppStore} from "../contexts/contexts";
 
 // returns a promise that returns a file as a raw binary string when resolved
@@ -25,13 +25,13 @@ export const getCurrentDate = () => {
 // returns current date in Aug 10, 2001 format
 export const getPublishDate = () => {
   const date = new Date();
-  return `${MONTHS_MAP[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+  return `${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
 }
 
 // converts date in YYYY-MM-DD format to Aug 10, 2001 format
 export const formatDate = (date: string) => {
   const parts = date.split('-');
-  return parts ? `${MONTHS_MAP[Number(parts[1])]} ${parts[2]}, ${parts[0]}` : '';
+  return parts ? `${MONTHS[Number(parts[1])]} ${parts[2]}, ${parts[0]}` : '';
 }
 
 // delimits a string and returns an array
@@ -62,6 +62,18 @@ export const getFileName = (name: string, prefixDate: boolean) => {
 // returns regex for file name prefix
 export const getFileNamePrefixRegex = (prefixDate: boolean) => {
   return "\/files\/" + (prefixDate ? getCurrentDate() + "-" : "");
+}
+
+// returns time without seconds
+// REQUIRED: time is in the form of HH:MM:SS
+export const getTimeWithoutSeconds = (time: string) => {
+  return time.split(':').slice(0, 2).join(':');
+}
+
+export const getFullDate = (date: string, time: string) => {
+  const dateObj = new Date(`${date}T${time}`);
+  const month = new Intl.DateTimeFormat('en-US', {month: "long"}).format(dateObj);
+  return `${DAYS_OF_WEEK[dateObj.getDay()]} ${month} ${dateObj.getDate()}, ${dateObj.getFullYear()}`
 }
 
 // returns content for event file

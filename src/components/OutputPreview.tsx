@@ -1,8 +1,17 @@
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import ReactDOMServer from 'react-dom/server';
-import {delimitCSV, getLink, getPublishDate, getFileNamePrefix, getFileNamePrefixRegex} from "../utils";
+import {
+  delimitCSV,
+  getLink,
+  getPublishDate,
+  getFileNamePrefix,
+  getFileNamePrefixRegex,
+  getFullDate,
+  getTimeWithoutSeconds
+} from "../utils";
 import {useStore} from "../contexts/contexts";
+import {validateDateTime} from "./FormComponent";
 
 export const OutputPreview = () => {
   const store = useStore();
@@ -13,7 +22,11 @@ export const OutputPreview = () => {
     previewImage,
     tags,
     title,
-    author
+    author,
+    startDate,
+    startTime,
+    endDate,
+    endTime
   } = store.form;
 
   // replace image tags with actual images
@@ -101,6 +114,19 @@ export const OutputPreview = () => {
     });
   }
 
+  const getWhenField = (startDate: string, startTime: string, endDate: string, endTime: string) => {
+    if (startDate && startTime && endDate && endTime) {
+      const startDateString = getFullDate(startDate, startTime);
+      if (startDate === endDate) {
+        return `**When:** ${startDateString} - ${getTimeWithoutSeconds(startTime)} to ${getTimeWithoutSeconds(endTime)}`;
+      } else if (validateDateTime({startDate, startTime, endDate, endTime}, "time")) {
+        const endDateString = getFullDate(endDate, endTime);
+        return `**When:** ${startDateString} - ${getTimeWithoutSeconds(startTime)} to ${endDateString} - ${getTimeWithoutSeconds(endTime)}`;
+      }
+    }
+    return ""
+  }
+
   const markdown = `
   <h1>
     <a class="text-dark text-decoration-none" href="#">${title}</a>
@@ -121,6 +147,7 @@ export const OutputPreview = () => {
   
   ${renderBody(body).replaceMarkdown().replaceHTML().value()}
   
+  ${getWhenField(startDate, startTime, endDate, endTime)}
   `;
 
   return (

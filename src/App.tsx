@@ -9,7 +9,8 @@ import {
   MarkdownPreview,
   OutputPreview,
   PreferencesModal,
-  ScrollableCol
+  ScrollableCol,
+  ImagesModal
 } from "./components";
 import {formInitialState} from './contexts/contexts';
 
@@ -29,6 +30,7 @@ const App = () => {
               <Icon iconName="FiletypeHtml" size={24} onClick={() => {
                 setIsMarkdownPreview(false)
               }}/>
+              <ImagesModal/>
               <PreferencesModal/>
               <FullScreenPreviewModal/>
             </ScrollableCol.Header>

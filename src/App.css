@@ -47,3 +47,20 @@ hr.dashed {
     background: #000;
     background: repeating-linear-gradient(90deg,#000,#000 10px,transparent 10px,transparent 20px);
 }
+
+/* dashed list */
+/* https://stackoverflow.com/questions/3200249/html-list-style-type-dash */
+ul.dashed {
+    margin: 0;
+    padding-left: 1rem;
+    list-style-type: none;
+}
+
+ul.dashed > li {
+    text-indent: -5px;
+}
+
+ul.dashed > li:before {
+    content: "- ";
+    text-indent: -5px;
+}

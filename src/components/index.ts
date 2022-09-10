@@ -7,3 +7,4 @@ export {FullScreenPreviewModal} from "./FullScreenPreviewModal";
 export {Icon} from "./Icon";
 export {PreferencesModal} from "./PreferencesModal";
 export {ScrollableCol} from "./ScrollableCol";
+export {ImagesModal} from "./ImagesModal";

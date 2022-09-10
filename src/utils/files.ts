@@ -37,6 +37,13 @@ export const getFileNamePrefixRegex = (prefixDate: boolean) => {
   return "\/files\/" + (prefixDate ? getCurrentDate() + "-" : "");
 }
 
+// returns formatted file size
+export const formatFileSize = (size: number) => {
+  const units = ['B', 'KB', 'MB'];
+  let unit = size > 1_000 ? size > 1_000_000 ? 2 : 1 : 0;
+  return `${Math.round((size / Math.pow(1_000, unit)))} ${units[unit]}`;
+}
+
 // returns content for event file
 export const getNewEventFileContent = (store: AppStore) => {
   const {body, categories, previewImage, startDate, startTime, endDate, endTime, tags, title, author} = store.form;

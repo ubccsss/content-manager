@@ -22,7 +22,6 @@ export const PreferencesModal = () => {
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
         keyboard={true}
         centered
       >

@@ -15,7 +15,6 @@ export const FullScreenPreviewModal = () => {
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
         keyboard={true}
         scrollable={true}
         dialogClassName={styles.dialogWidth}

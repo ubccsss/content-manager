@@ -62,7 +62,7 @@ categories: [${categories}]
 author: ${author}
 # Images associated to this event. Used for banner.
 images:
-  - ${previewImage ? getFileName(previewImage[0].name, prefixDate) : ""}
+  - ${previewImage && previewImage[0] ? getFileName(previewImage[0].name, prefixDate) : ""}
 # Start date and time. Used for calendar page.
 start_date: ${startDate} ${startTime}
 # End date and time (defaults to one hour after start). Used for calendar page.

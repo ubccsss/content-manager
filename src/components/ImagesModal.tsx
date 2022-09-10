@@ -1,6 +1,6 @@
 import {Icon} from "./Icon";
 import {Carousel, Modal} from "react-bootstrap";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useStore} from "../contexts/contexts";
 import {formatFileSize, getFileName, getLink} from "../utils";
 import styles from "./ImagesModal.module.css";
@@ -22,21 +22,25 @@ export const ImagesModal = () => {
   const {otherImages, previewImage} = store.form;
   const prefixDate = store.preferences.prefixDate;
 
-  const files: ImageFile[] = [];
-  if (previewImage) files.push({
-    file: previewImage[0],
-    url: getLink(previewImage[0]),
-    path: getFileName(previewImage[0].name, prefixDate),
-    isPreview: true
-  });
-  otherImages?.forEach((file) => {
-    if (file) files.push({
-      file: file,
-      url: getLink(file),
-      path: getFileName(file.name, prefixDate),
-      isPreview: false
+  let files: ImageFile[] = [];
+
+  useEffect(() => {
+    files = [];
+    if (previewImage && previewImage[0]) files.push({
+      file: previewImage[0],
+      url: getLink(previewImage[0]),
+      path: getFileName(previewImage[0].name, prefixDate),
+      isPreview: true
     });
-  });
+    otherImages?.forEach((file) => {
+      if (file) files.push({
+        file: file,
+        url: getLink(file),
+        path: getFileName(file.name, prefixDate),
+        isPreview: false
+      });
+    });
+  }, [otherImages, previewImage]);
 
   const [index, setIndex] = useState(0);
 

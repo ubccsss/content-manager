@@ -1,5 +1,3 @@
-export const MONTHS_MAP = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
 // return GitHub details based on whether the environment is production or development
 const getGithubDetails = () => {
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {

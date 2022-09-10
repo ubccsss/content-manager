@@ -1,11 +1,10 @@
-import {Sliders2} from 'react-bootstrap-icons'
 import {Form, Modal} from "react-bootstrap";
 import React, {useState} from "react";
-import styles from "./SettingsComponent.module.css";
 import {useDispatch, useStore} from "../contexts/contexts";
 import {updatePrefixDate} from "../reducers/PreferencesActions";
+import {Icon} from "./Icon";
 
-export const PreferencesComponent = () => {
+export const PreferencesModal = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -23,7 +22,6 @@ export const PreferencesComponent = () => {
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
         keyboard={true}
         centered
       >
@@ -40,9 +38,7 @@ export const PreferencesComponent = () => {
         </Modal.Body>
       </Modal>
 
-      <button className={`${styles.gear} float-end pt-lg-2`} onClick={handleShow}>
-        <Sliders2 size={24}/>
-      </button>
+      <Icon iconName="Sliders2" size={24} onClick={handleShow}/>
     </>
   )
 }

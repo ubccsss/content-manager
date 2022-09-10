@@ -1,7 +1,0 @@
-a svg{
-    color: var(--bs-dark);
-}
-
-a svg:hover {
-    color: var(--bs-primary);
-}

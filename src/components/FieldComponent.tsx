@@ -3,8 +3,7 @@ import React from "react";
 import {FORM_ACTION_TYPES} from "../reducers/FormActions";
 import {FormFields} from "../reducers/FormReducer";
 import {useStore} from "../contexts/contexts";
-import styles from "./FieldComponent.module.css";
-import {getFileName} from "../utils/utils";
+import {getFileName} from "../utils";
 
 export interface Field {
   label: string;
@@ -56,7 +55,7 @@ export const FieldComponent = ({
     if (files && (fieldName === 'otherImages' || fieldName === 'previewImage')) {
       return (
         <Form.Control.Feedback type="valid">
-          <ul className={styles.dashed}>
+          <ul className="dashed">
             {Array.from(files).map((file, index) => (
               <li key={index}>{getFileName(file.name, store.preferences.prefixDate)}</li>
             ))}

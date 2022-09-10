@@ -43,6 +43,7 @@ $ yarn build # builds the app for production to the `build` folder
 ### Folder Structure
 
 - `src` - contains all the source code for the app
+  - `api` - contains all external api calls
   - `components` - contains all the components used in the app
   - `constants` - contains all the constants used in the app
   - `contexts` - contains all the contexts used in the app

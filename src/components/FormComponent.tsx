@@ -1,8 +1,8 @@
-import {Button, ButtonGroup, ButtonToolbar, Col, Dropdown, DropdownButton, Form, Row} from "react-bootstrap";
+import {Button, ButtonGroup, Col, Form, Row} from "react-bootstrap";
 import React from "react";
 import {FormFields} from "../reducers/FormReducer";
 import {Formik} from "formik";
-import {createEvent} from "../utils/github";
+import {createEvent} from "../api/github";
 import {FIELD_ACTION_MAP, updateField, updateImage} from "../reducers/FormActions";
 import * as yup from 'yup';
 import {Field, FieldComponent} from "./FieldComponent";
@@ -12,7 +12,7 @@ import {updateAlert} from "../reducers/AlertActions";
 import {AlertData} from "../reducers/AlertReducer";
 
 // validate date and time
-const validateDateTime = (schema: any, field: string, type: "date" | "time") => {
+export const validateDateTime = (schema: any, type: "date" | "time") => {
   const {startDate, startTime, endDate, endTime} = schema;
   if (startDate && startTime && endDate && endTime) {
     if (startDate === endDate && type === "date") {
@@ -34,16 +34,16 @@ const validationSchema = yup.object().shape({
   author: yup.string().required(),
   previewImage: yup.string().required(),
   startDate: yup.string().required().test('is-after', 'event must start before it ends', function () {
-    return validateDateTime(this.parent, this.path, "date");
+    return validateDateTime(this.parent, "date");
   }),
   startTime: yup.string().required().test('is-after', 'event must start before it ends', function () {
-    return validateDateTime(this.parent, this.path, "time");
+    return validateDateTime(this.parent, "time");
   }),
   endDate: yup.string().required().test('is-after', 'event must start before it ends', function () {
-    return validateDateTime(this.parent, this.path, "date");
+    return validateDateTime(this.parent, "date");
   }),
   endTime: yup.string().required().test('is-after', 'event must start before it ends', function () {
-    return validateDateTime(this.parent, this.path, "time");
+    return validateDateTime(this.parent, "time");
   }),
   otherImages: yup.string(),
   body: yup.string().required(),
@@ -51,20 +51,11 @@ const validationSchema = yup.object().shape({
 
 interface FormComponentProps {
   initialState: FormFields;
-  setIsMarkdownPreview: (isMarkdownPreview: boolean) => void;
 }
 
-export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponentProps) => {
+export const FormComponent = ({initialState}: FormComponentProps) => {
   const store = useStore();
   const dispatch = useDispatch();
-
-  const showOutput = () => {
-    setIsMarkdownPreview(false);
-  }
-
-  const showMarkdown = () => {
-    setIsMarkdownPreview(true);
-  }
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName = event.target.name as keyof FormFields;
@@ -153,17 +144,9 @@ export const FormComponent = ({initialState, setIsMarkdownPreview}: FormComponen
               </React.Fragment>
             )
           })}
-          <ButtonToolbar aria-label="Toolbar with button groups">
-            <ButtonGroup className="me-2">
-              <DropdownButton as={ButtonGroup} title="Preview" id="bg-nested-dropdown">
-                <Dropdown.Item onClick={showMarkdown}>Markdown</Dropdown.Item>
-                <Dropdown.Item onClick={showOutput}>Output</Dropdown.Item>
-              </DropdownButton>
-            </ButtonGroup>
-            <ButtonGroup>
-              <Button variant="primary" type="submit" disabled={!isValid || !dirty || isSubmitting}>Create Event</Button>
-            </ButtonGroup>
-          </ButtonToolbar>
+          <ButtonGroup>
+            <Button variant="custom" type="submit" disabled={!isValid || !dirty || isSubmitting}>Create Event</Button>
+          </ButtonGroup>
         </Form>
       )}
     </Formik>

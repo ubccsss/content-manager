@@ -9,7 +9,7 @@ export const AlertComponent = () => {
 
   return (
     show ? (
-      <Container className="position-fixed ps-0 pe-5 pt-5" fluid>
+      <Container className="position-fixed ps-0 pe-5 pt-5" style={{ zIndex: 1}} fluid>
         <Row className="justify-content-center">
           <Col xs={10} sm={8} md={6} lg={5} xl={4}>
             <Alert variant={variant}

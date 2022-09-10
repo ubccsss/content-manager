@@ -82,7 +82,7 @@ export const formSchema: any = {
   body: {
     label: "Body* (Use Markdown over HTML as much as possible)",
     type: "textarea",
-    placeholder: "image markdown syntax: ![](/files/image_name.png)",
+    placeholder: "Enter the content of the post",
     actionType: FORM_ACTION_TYPES.UPDATE_BODY,
     name: "body",
     rows: 25

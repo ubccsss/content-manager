@@ -145,7 +145,7 @@ export const FormComponent = ({initialState}: FormComponentProps) => {
             )
           })}
           <ButtonGroup>
-            <Button variant="primary" type="submit" disabled={!isValid || !dirty || isSubmitting}>Create Event</Button>
+            <Button variant="custom" type="submit" disabled={!isValid || !dirty || isSubmitting}>Create Event</Button>
           </ButtonGroup>
         </Form>
       )}

@@ -1,15 +1,21 @@
 export {
-  readFile,
   formatDate,
   getCurrentDate,
   getPublishDate,
-  delimitCSV,
-  stringToArray,
+  getTimeWithoutSeconds,
+  getFullDate
+} from './dates';
+
+export {
+  readFile,
   getLink,
   getNewEventFileContent,
   getFileNamePrefix,
   getFileName,
   getFileNamePrefixRegex,
-  getTimeWithoutSeconds,
-  getFullDate
+} from './files';
+
+export {
+  delimitCSV,
+  stringToArray,
 } from './utils';

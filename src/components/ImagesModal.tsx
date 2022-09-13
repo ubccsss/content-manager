@@ -22,10 +22,10 @@ export const ImagesModal = () => {
   const {otherImages, previewImage} = store.form;
   const prefixDate = store.preferences.prefixDate;
 
-  let files: ImageFile[] = [];
+  const [images, setImages] = useState<ImageFile[]>([]);
 
   useEffect(() => {
-    files = [];
+    const files = [];
     if (previewImage && previewImage[0]) files.push({
       file: previewImage[0],
       url: getLink(previewImage[0]),
@@ -40,6 +40,7 @@ export const ImagesModal = () => {
         isPreview: false
       });
     });
+    setImages(files);
   }, [otherImages, previewImage]);
 
   const [index, setIndex] = useState(0);
@@ -63,9 +64,9 @@ export const ImagesModal = () => {
           <Modal.Title>Images</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {files.length > 0 ? (
+          {images.length > 0 ? (
             <Carousel onSelect={handleSelect}>
-              {files.map((file, index) => (
+              {images.map((file, index) => (
                 <Carousel.Item key={index}>
                   <img
                     className="d-block w-100"
@@ -79,17 +80,17 @@ export const ImagesModal = () => {
             <p className="text-center pt-2">No images uploaded</p>
           )}
         </Modal.Body>
-        {files.length > 0 && (
+        {images.length > 0 && (
           <Modal.Footer className="d-block">
-            {files[index] && (
+            {images[index] && (
               <ul className="dashed">
                 <li>
-                  Name: {files[index].file.name}
-                  <code>{files[index].isPreview ? " [Preview Image]" : " [Other Image]"}</code>
+                  Name: {images[index].file.name}
+                  <code>{images[index].isPreview ? " [Preview Image]" : " [Other Image]"}</code>
                 </li>
-                <li>Path: {files[index].path}</li>
-                <li>Size: {formatFileSize(files[index].file.size)}</li>
-                <li>Type: {files[index].file.type}</li>
+                <li>Path: {images[index].path}</li>
+                <li>Size: {formatFileSize(images[index].file.size)}</li>
+                <li>Type: {images[index].file.type}</li>
               </ul>
             )}
           </Modal.Footer>

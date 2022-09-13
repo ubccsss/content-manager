@@ -8,7 +8,8 @@ import {
   getFileNamePrefix,
   getFileNamePrefixRegex,
   getFullDate,
-  getTimeWithoutSeconds
+  getTimeWithoutSeconds,
+  getFormattedName
 } from "../utils";
 import {useStore} from "../contexts/contexts";
 import {validateDateTime} from "./FormComponent";
@@ -101,7 +102,7 @@ export const OutputPreview = () => {
           <img style={{maxWidth: "100%"}} src={getLink(image)} alt={alt}/>
         );
       } else {
-        if (previewImage && src === previewImage[0].name) {
+        if (previewImage && src === getFormattedName(previewImage[0].name)) {
           // replace with link to uploaded previewImage
           return ReactDOMServer.renderToString(
             <img style={{maxWidth: "100%"}} src={getLink(previewImage[0])} alt={alt}/>

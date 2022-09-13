@@ -13,7 +13,8 @@ export {
   getFileNamePrefix,
   getFileName,
   getFileNamePrefixRegex,
-  formatFileSize
+  formatFileSize,
+  getFormattedName
 } from './files';
 
 export {

@@ -27,9 +27,14 @@ export const getFileNamePrefix = (prefixDate: boolean) => {
   return prefixDate ? `/files/${getCurrentDate()}-` : '/files/';
 }
 
+// returns formatted file name: replace spaces with dashes and convert to lowercase
+export const getFormattedName = (name: string) => {
+  return name.toLowerCase().replaceAll(' ', '-');
+}
+
 // returns the new name of a file
 export const getFileName = (name: string, prefixDate: boolean) => {
-  return `${getFileNamePrefix(prefixDate)}${name}`;
+  return `${getFileNamePrefix(prefixDate)}${getFormattedName(name)}`;
 }
 
 // returns regex for file name prefix

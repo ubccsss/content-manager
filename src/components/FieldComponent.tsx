@@ -19,7 +19,7 @@ export interface Field {
 interface FieldComponentProps {
   field: Field;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  onBlur: () => void
+  onBlur: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const FieldComponent = ({field, onChange, onBlur}: FieldComponentProps) => {

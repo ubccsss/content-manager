@@ -137,7 +137,11 @@ export const FormComponent = () => {
                                   onChange(event)
                                   handleChange(event)
                                 }}
-                                onBlur={() => setFieldTouched(field.name)}
+                                onBlur={(event) => {
+                                  setFieldTouched(field.name)
+                                  onChange(event)
+                                  handleChange(event)
+                                }}
                               />
                             </Col>
                           )
@@ -152,7 +156,11 @@ export const FormComponent = () => {
                         onChange(event)
                         handleChange(event)
                       }}
-                      onBlur={() => setFieldTouched(formSchema[key].name)}
+                      onBlur={(event) => {
+                        setFieldTouched(formSchema[key].name)
+                        onChange(event)
+                        handleChange(event)
+                      }}
                     />
                   )}
                 </React.Fragment>

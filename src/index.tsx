@@ -5,16 +5,6 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {AppProvider} from "./contexts/contexts";
 
-// define forEach for FileList
-declare global {
-  interface FileList {
-    forEach(callback: (f: File) => void): void;
-  }
-}
-FileList.prototype.forEach = function (callback) {
-  Array.prototype.forEach.call(this, callback)
-};
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

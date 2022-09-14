@@ -42,13 +42,13 @@
 /* custom react-bootstrap Button variant for the entire app */
 .btn.btn-custom {
     background-color: var(--bs-white);
-    color: var(--bs-dark);
-    border: 1px solid var(--bs-dark);
+    color: var(--bs-primary);
+    border: 1px solid var(--bs-primary);
 }
 
 .btn.btn-custom:disabled {
     background-color: var(--bs-white);
-    color: var(--bs-danger);
+    color: var(--bs-dark);
 }
 
 .btn.btn-custom:hover {
@@ -81,4 +81,9 @@ ul.dashed > li {
 ul.dashed > li:before {
     content: "- ";
     text-indent: -5px;
+}
+
+/* add background color when hovering over list-group-items */
+.list-group-item:hover {
+    background-color: var(--bs-gray-100);
 }

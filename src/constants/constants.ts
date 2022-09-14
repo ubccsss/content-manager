@@ -15,4 +15,6 @@ const getGithubDetails = () => {
   }
 }
 
+export const LABEL = "create event";
+
 export const { OWNER, REPO, BASE_BRANCH } = getGithubDetails();

@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import {Field, FieldComponent} from "./FieldComponent";
 import {formInitialState, useDispatch, useStore} from "../contexts/contexts";
 import {formSchema} from "../constants/formSchema";
-import {updateAlert} from "../reducers/AlertActions";
+import {updateAlert, updateAlertShow} from "../reducers/AlertActions";
 import {AlertData} from "../reducers/AlertReducer";
 import {updatePRDetails} from "../reducers/GitActions";
 
@@ -81,6 +81,8 @@ export const FormComponent = () => {
     <Formik
       validationSchema={validationSchema}
       onSubmit={async () => {
+        // hide alert
+        dispatch(updateAlertShow(false));
         try {
           const exists = store.git.prExists;
           const submitAction = exists ? updateEvent : createEvent;

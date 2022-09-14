@@ -21,7 +21,7 @@ export const AlertComponent = () => {
               {url && urlText && (
                 <>
                   <br/>
-                  <Alert.Link href={url}>{urlText}</Alert.Link>
+                  <a href={url} target="_blank" rel="noreferrer" className={`alert-link`}>{urlText}</a>
                 </>
               )}
             </Alert>

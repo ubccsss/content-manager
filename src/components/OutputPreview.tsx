@@ -84,7 +84,7 @@ export const OutputPreview = () => {
         src = p1;
       }
       src = src.replaceAll(prefix, "");
-      const image = otherImages ? Array.from(otherImages).find((image) => image.name === src) : null;
+      const image = otherImages ? Array.from(otherImages).find((image) => getFormattedName(image.name) === src) : null;
       if (image) {
         // replace with link to uploaded otherImages
         return ReactDOMServer.renderToString(

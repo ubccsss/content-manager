@@ -68,39 +68,34 @@ export const FormComponent = () => {
     }
   }
 
+  const handleSubmit = async (submitFunction: typeof updateEvent | typeof createEvent, alertOptions: AlertData) => {
+    const {data, prDetails} = await updateEvent(store);
+    // show alert
+    alertOptions.url = data.html_url;
+    dispatch(updateAlert(alertOptions));
+    // update git state with PR details so that the user continue to work on the same PR
+    prDetails.prExists = true;
+    dispatch(updatePRDetails(prDetails));
+  }
+
   return (
     <Formik
       validationSchema={validationSchema}
       onSubmit={async () => {
         try {
-          if (store.git.prExists) {
-            const {data, branchRef, lastCommitSha, lastTreeSha, prNumber} = await updateEvent(store);
-            dispatch(updateAlert({
-              show: true,
-              message: `<p>Successfully <i>updated</i> event: ${store.form.title} by ${store.form.author}</p><p class="m-0"><u>Make sure to review changes and delete unused images and files.</u></p>`,
-              variant: 'info',
-              url: data.html_url,
-              urlText: 'Click here to see the PR and deploy preview.'
-            }))
-            // update git state with new hashes
-            // branchRef and prNumber don't change
-            dispatch(updatePRDetails({
-              prExists: true,
-              branchRef,
-              lastCommitSha,
-              lastTreeSha,
-              prNumber
-            }));
-          } else {
-            const {html_url} = await createEvent(store);
-            dispatch(updateAlert({
-              show: true,
-              message: `Successfully <i>created</i> event:  ${store.form.title} by ${store.form.author}`,
-              variant: 'success',
-              url: html_url,
-              urlText: 'Click here to see the PR and deploy preview.'
-            }))
+          const submitFunction = store.git.prExists ? updateEvent : createEvent;
+          const alertOptions = store.git.prExists ? {
+            show: true,
+            message: `<p>Successfully <i>created</i> event:  ${store.form.title} by ${store.form.author}</p><p class="m-0">You can continue to work on the same PR.</p>`,
+            variant: 'success',
+            urlText: 'Click here to see the PR and deploy preview.'
+          } : {
+            show: true,
+            message: `<p>Successfully <i>updated</i> event: ${store.form.title} by ${store.form.author}</p><p class="m-0"><u>Make sure to review changes and delete unused images and files.</u></p>`,
+            variant: 'info',
+            urlText: 'Click here to see the PR and deploy preview.'
           }
+          await handleSubmit(submitFunction, alertOptions as AlertData);
         } catch (e: unknown) {
           console.error(e)
           const message = e instanceof Error ? e.message : String(e)

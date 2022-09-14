@@ -171,8 +171,17 @@ export const createEvent = async (store: AppStore) => {
     labels: [LABEL]
   })
 
-  // return response containing new PR data
-  return newPR.data;
+  return {
+    data: newPR.data,
+    prDetails: {
+      prExists: true,
+      branchRef: newBranchName,
+      lastCommitSha: newCommitSha,
+      lastTreeSha: newContentTreeSha,
+      prNumber: newPR.data.number
+    }
+  };
+
 }
 
 // Creates a new tree with the new event file and images
@@ -202,10 +211,13 @@ export const updateEvent = async (store: AppStore) => {
 
   return {
     data: updatedPR.data,
-    branchRef: branchRef,
-    lastCommitSha: newCommitSha,
-    lastTreeSha: newContentTreeSha,
-    prNumber: updatedPR.data.number
+    prDetails: {
+      prExists: true,
+      branchRef: branchRef,
+      lastCommitSha: newCommitSha,
+      lastTreeSha: newContentTreeSha,
+      prNumber: updatedPR.data.number
+    }
   };
 }
 

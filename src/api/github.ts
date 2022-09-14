@@ -39,9 +39,11 @@ export const listPRs = async (): Promise<ListPrResponseDataType> => {
     repo: REPO
   })
 
-  console.log(prs.data);
   return prs.data;
 }
+
+// type for files in compare.data.files
+export type ComparisonFilesType = GetResponseTypeFromEndpointMethod<typeof octokit.rest.repos.compareCommits>["data"]["files"];
 
 // returns the comparison between two branches
 export const compareBranches = async (baseRef: string, headRef: string) => {
@@ -52,7 +54,6 @@ export const compareBranches = async (baseRef: string, headRef: string) => {
     head: headRef
   });
 
-  console.log(compare.data);
   return compare.data;
 }
 

@@ -39,7 +39,8 @@ export const SelectPRModal = () => {
         throw new Error('Could not find tree hash for last commit. Did you recently make a change? The API can take some time to reflect changes.');
       }
       dispatch(updatePrefixDate(false));
-      dispatch(await updateForm(baseRef, headRef));
+      // comparison.files is an array of files that have changed between the two branches
+      dispatch(await updateForm(comparison.files || [], headRef));
       dispatch(updatePRDetails({
         prExists: true,
         branchRef: headRef,

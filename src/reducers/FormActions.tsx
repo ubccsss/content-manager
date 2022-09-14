@@ -1,5 +1,5 @@
 import {FormFields} from "./FormReducer";
-import {compareBranches, getContent} from "../api/github";
+import {ComparisonFilesType, getContent} from "../api/github";
 import {Buffer} from "buffer";
 
 export enum FORM_ACTION_TYPES {
@@ -60,14 +60,11 @@ export const updateImage = (type: FORM_ACTION_TYPES, fieldName: keyof FormFields
 }
 
 // update From using PR data
-export const updateForm = async (baseRef: string, headRef: string): Promise<FormActions> => {
-  // get changed files
-  const files = (await compareBranches(baseRef, headRef)).files || [];
-
+export const updateForm = async (files: ComparisonFilesType, headRef: string): Promise<FormActions> => {
   // get file names
-  const imageFilesNames = files.filter(file => file.filename.match(/^static\/files\/.*\.(jpg|jpeg|png|gif)$/)).map(file => file.filename);
-  const markdownFileName = files.find(file => file.filename.match(/^content\/events\/.*\.md$/))?.filename;
-  if (!markdownFileName || imageFilesNames.length === 0) {
+  const imageFilesNames = files?.filter(file => file.filename.match(/^static\/files\/.*\.(jpg|jpeg|png|gif)$/)).map(file => file.filename);
+  const markdownFileName = files?.find(file => file.filename.match(/^content\/events\/.*\.md$/))?.filename;
+  if (!markdownFileName || !imageFilesNames || imageFilesNames.length === 0) {
     throw new Error('Could not find md file or image files');
   }
 

@@ -68,13 +68,12 @@ export const FormComponent = () => {
     }
   }
 
-  const handleSubmit = async (submitFunction: typeof updateEvent | typeof createEvent, alertOptions: AlertData) => {
-    const {data, prDetails} = await updateEvent(store);
+  const handleSubmit = async (submitAction: typeof updateEvent | typeof createEvent, alertOptions: AlertData) => {
+    const {data, prDetails} = await submitAction(store);
     // show alert
     alertOptions.url = data.html_url;
     dispatch(updateAlert(alertOptions));
     // update git state with PR details so that the user continue to work on the same PR
-    prDetails.prExists = true;
     dispatch(updatePRDetails(prDetails));
   }
 
@@ -83,19 +82,20 @@ export const FormComponent = () => {
       validationSchema={validationSchema}
       onSubmit={async () => {
         try {
-          const submitFunction = store.git.prExists ? updateEvent : createEvent;
-          const alertOptions = store.git.prExists ? {
-            show: true,
-            message: `<p>Successfully <i>created</i> event:  ${store.form.title} by ${store.form.author}</p><p class="m-0">You can continue to work on the same PR.</p>`,
-            variant: 'success',
-            urlText: 'Click here to see the PR and deploy preview.'
-          } : {
+          const exists = store.git.prExists;
+          const submitAction = exists ? updateEvent : createEvent;
+          const alertOptions = exists ? {
             show: true,
             message: `<p>Successfully <i>updated</i> event: ${store.form.title} by ${store.form.author}</p><p class="m-0"><u>Make sure to review changes and delete unused images and files.</u></p>`,
             variant: 'info',
             urlText: 'Click here to see the PR and deploy preview.'
+          } : {
+            show: true,
+            message: `<p>Successfully <i>created</i> event:  ${store.form.title} by ${store.form.author}</p><p class="m-0">You can continue to work on the same PR.</p>`,
+            variant: 'success',
+            urlText: 'Click here to see the PR and deploy preview.'
           }
-          await handleSubmit(submitFunction, alertOptions as AlertData);
+          await handleSubmit(submitAction, alertOptions as AlertData);
         } catch (e: unknown) {
           console.error(e)
           const message = e instanceof Error ? e.message : String(e)

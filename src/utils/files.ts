@@ -34,10 +34,6 @@ export const getFormattedName = (name: string) => {
 
 // returns the new name of a file
 export const getFileName = (name: string, prefixDate: boolean) => {
-  // do not prefix date if name already contains a date or if prefixDate is false
-  if (name.match(/^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])/) || !prefixDate) {
-    return `${getFileNamePrefix(false)}${getFormattedName(name)}`;
-  }
   return `${getFileNamePrefix(prefixDate)}${getFormattedName(name)}`;
 }
 

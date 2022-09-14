@@ -82,3 +82,8 @@ ul.dashed > li:before {
     content: "- ";
     text-indent: -5px;
 }
+
+/* add background color when hovering over list-group-items */
+.list-group-item:hover {
+    background-color: var(--bs-gray-100);
+}

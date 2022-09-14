@@ -6,14 +6,17 @@ import {AlertActions} from "../reducers/AlertActions";
 import React, {createContext, useContext, useReducer} from "react";
 import {Preferences, PreferencesReducer} from "../reducers/PreferencesReducer";
 import {PreferencesActions} from "../reducers/PreferencesActions";
+import {GitFields, GitReducer} from "../reducers/GitReducer";
+import {GitActions} from "../reducers/GitActions";
 
 export interface AppStore {
   form: FormFields;
   alert: AlertData;
   preferences: Preferences;
+  git: GitFields;
 }
 
-type Actions = FormActions | AlertActions | PreferencesActions;
+type Actions = FormActions | AlertActions | PreferencesActions | GitActions;
 type AppReducer = (state: AppStore, action: Actions) => AppStore;
 
 export const formInitialState: FormFields = {
@@ -27,7 +30,8 @@ export const formInitialState: FormFields = {
   endDate: "",
   endTime: "",
   otherImages: undefined,
-  body: ""
+  body: "",
+  isChanged: false  // set to true when state is changed externally when loading a PR
 }
 
 const alertInitialState: AlertData = {
@@ -42,11 +46,20 @@ const preferencesInitialState: Preferences = {
   prefixDate: true
 }
 
+const gitInitialState: GitFields = {
+  prExists: false,
+  branchRef: "",
+  lastTreeSha: "",
+  lastCommitSha: "",
+  prNumber: 0
+}
+
 // combined reducers
 export const [appReducer, initialState] = combineReducers<AppReducer>({
   form: [FormReducer, formInitialState],
   alert: [AlertReducer, alertInitialState],
-  preferences: [PreferencesReducer, preferencesInitialState]
+  preferences: [PreferencesReducer, preferencesInitialState],
+  git: [GitReducer, gitInitialState]
 });
 
 export const StateContext = createContext({} as AppStore);

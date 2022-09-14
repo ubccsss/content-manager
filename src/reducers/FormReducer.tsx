@@ -5,13 +5,14 @@ export interface FormFields {
   tags: string,
   categories: string,
   author: string,
-  previewImage: FileList | undefined,
+  previewImage: File[] | undefined,
   startDate: string,
   startTime: string,
   endDate: string,
   endTime: string,
-  otherImages: FileList | undefined,
-  body: string
+  otherImages: File[] | undefined,
+  body: string,
+  isChanged: boolean,
 }
 
 export const FormReducer = (state: FormFields, action: FormActions) => {
@@ -70,6 +71,15 @@ export const FormReducer = (state: FormFields, action: FormActions) => {
       return {
         ...state,
         body: action.payload.body
+      }
+    case FORM_ACTION_TYPES.UPDATE_FORM:
+      return {
+        ...action.payload
+      }
+    case FORM_ACTION_TYPES.UPDATE_IS_CHANGED:
+      return {
+        ...state,
+        isChanged: action.payload.isChanged
       }
     default:
       return state;

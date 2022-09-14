@@ -46,17 +46,6 @@ export const OutputPreview = () => {
     );
   }
 
-  // returns image tag with the uploaded preview image if it exists
-  const renderPreviewImage = () => {
-    if (previewImage) {
-      return ReactDOMServer.renderToString(
-        <img style={{maxWidth: "100%"}} src={getLink(previewImage[0])} alt={previewImage[0].name}/>
-      );
-    } else {
-      return "";
-    }
-  }
-
   // process body by replacing Markdown and HTML
   const renderBody = (initial: string) => {
     let value = initial;
@@ -102,7 +91,7 @@ export const OutputPreview = () => {
           <img style={{maxWidth: "100%"}} src={getLink(image)} alt={alt}/>
         );
       } else {
-        if (previewImage && src === getFormattedName(previewImage[0].name)) {
+        if (previewImage && previewImage[0] && src === getFormattedName(previewImage[0].name)) {
           // replace with link to uploaded previewImage
           return ReactDOMServer.renderToString(
             <img style={{maxWidth: "100%"}} src={getLink(previewImage[0])} alt={alt}/>

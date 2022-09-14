@@ -10,12 +10,14 @@ import {
   OutputPreview,
   PreferencesModal,
   ScrollableCol,
-  ImagesModal
+  ImagesModal,
+  SelectPRModal
 } from "./components";
-import {formInitialState} from './contexts/contexts';
+import {useStore} from "./contexts/contexts";
 
 const App = () => {
   const [isMarkdownPreview, setIsMarkdownPreview] = React.useState(true);
+  const store = useStore();
 
   return (
     <>
@@ -23,7 +25,8 @@ const App = () => {
       <Container fluid>
         <Row xs={1} lg={2} className="row-height">
           <ScrollableCol>
-            <ScrollableCol.Header title="Create New Event">
+            <ScrollableCol.Header title={store.git.prExists ? 'Update Event' : 'Create New Event'}>
+              <SelectPRModal/>
               <Icon iconName="MarkdownFill" size={24} onClick={() => {
                 setIsMarkdownPreview(true)
               }}/>
@@ -36,7 +39,7 @@ const App = () => {
             </ScrollableCol.Header>
             <ScrollableCol.Body>
               <i className="float-end text-secondary">fields marked with * are required</i>
-              <FormComponent initialState={formInitialState}/>
+              <FormComponent />
             </ScrollableCol.Body>
           </ScrollableCol>
           <ScrollableCol>

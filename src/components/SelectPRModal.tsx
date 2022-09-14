@@ -31,7 +31,7 @@ export const SelectPRModal = () => {
     });
   }, [])
 
-  const handleSelectPR = async (baseRef:string, headRef: string, lastCommitSha: string, prNumber: number) => {
+  const handleSelectPR = async (baseRef: string, headRef: string, lastCommitSha: string, prNumber: number) => {
     try {
       const comparison = await compareBranches(baseRef, headRef);
       const lastTreeSha = comparison.commits.find((commit) => commit.sha === lastCommitSha)?.commit.tree.sha;
@@ -59,7 +59,7 @@ export const SelectPRModal = () => {
     }
   }
 
-  const renderBody = () => {
+  const renderBodyAndFooter = () => {
     const prsList: JSX.Element[] = [];
     prs.forEach((pr) => {
       if (pr.labels.find((label) => label.name === LABEL)) {
@@ -77,7 +77,7 @@ export const SelectPRModal = () => {
                 <p>Created at: {lastUpdatedString}</p>
               </div>
               <div>
-                <Icon iconName="ArrowRight" size={24} onClick={async() => {
+                <Icon iconName="ArrowRight" size={24} onClick={async () => {
                   setIsLoading(true);
                   await handleSelectPR(pr.base.ref, pr.head.ref, pr.head.sha, pr.number)
                   setIsLoading(false);
@@ -97,11 +97,16 @@ export const SelectPRModal = () => {
       )
     } else {
       return (
-        <Modal.Body className="p-0">
-          <ListGroup>
-            {prsList}
-          </ListGroup>
-        </Modal.Body>
+        <>
+          <Modal.Body className="p-0">
+            <ListGroup>
+              {prsList}
+            </ListGroup>
+          </Modal.Body>
+          <Modal.Footer>
+            <i><small>Click the arrow to load the PR</small></i>
+          </Modal.Footer>
+        </>
       )
     }
   }
@@ -116,9 +121,11 @@ export const SelectPRModal = () => {
         scrollable={true}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Select PR to Edit</Modal.Title>
+          <Modal.Title>
+            Select PR to Edit
+          </Modal.Title>
         </Modal.Header>
-        {renderBody()}
+        {renderBodyAndFooter()}
       </Modal>
 
       <Icon iconName="Git" size={24} onClick={handleShow}/>

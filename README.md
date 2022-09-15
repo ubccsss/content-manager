@@ -1,6 +1,6 @@
 # content manager for ubccsss.org
 
-Create posts for [ubccsss.org](https://github.com/ubccsss/ubccsss.org)
+Create posts for [ubccsss.org](https://github.com/ubccsss/ubccsss.org) using the GitHub REST API
 
 ## Installation
 

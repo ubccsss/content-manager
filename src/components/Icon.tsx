@@ -3,11 +3,7 @@ import * as icons from 'react-bootstrap-icons';
 import React from "react";
 import {ButtonVariant} from "react-bootstrap/types";
 
-interface BootstrapIconProps extends React.SVGAttributes<SVGElement> {
-  size?: string | number;
-}
-
-interface IconProps extends BootstrapIconProps {
+interface IconProps extends icons.IconProps {
   variant?: ButtonVariant;
   iconName: keyof typeof icons;
   buttonClassName?: string;

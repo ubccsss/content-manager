@@ -73,7 +73,7 @@ start_date: ${startDate} ${startTime}
 # End date and time (defaults to one hour after start). Used for calendar page.
 end_date: ${endDate} ${endTime}
 ---
-
+${previewImage && previewImage[0] ? `\n![Preview image for ${title} event](${getFileName(previewImage[0].name, prefixDate)})\n` : ""}
 ${body}
 `
   );
